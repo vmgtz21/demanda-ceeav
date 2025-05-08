@@ -1,0 +1,375 @@
+<!DOCTYPE html>\n<html lang="es"><head><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    const errorString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  window.addEventListener('error', function(event) {
+    const errorString = event.message + ' (' + event.filename + ':' + event.lineno + ':' + event.colno + ') ' + (event.error ? event.error.stack : '');
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demanda Contencioso Administrativa</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000000;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 1in auto; /* Margen estándar para documentos */
+            padding: 1in 1in; /* Simula márgenes de página */
+            background-color: white;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 14pt;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 24px; /* Espacio después del título */
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000000;
+        }
+        h2 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 24px; /* Espacio antes de cada sección principal */
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+        p, li {
+            text-align: justify;
+            margin-bottom: 10px; /* Espacio entre párrafos/elementos de lista */
+        }
+        ul { list-style-type: disc; margin-left: 40px; margin-bottom: 12px;}
+        ol { list-style-type: decimal; margin-left: 40px; margin-bottom: 12px;}
+
+        strong { font-weight: bold; }
+        .law-citation { font-style: italic; }
+        .article-quote {
+            border-left: 1px solid #000000; /* Línea negra sutil */
+            padding-left: 10px;
+            margin-left: 20px; /* Sangría para citas */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-style: italic;
+            background-color: #f9f9f9; /* Fondo casi imperceptible */
+        }
+        .anexo-ref {
+            font-weight: normal;
+            text-decoration: underline;
+        }
+        .important-point {
+             font-weight: bold;
+        }
+        .highlight-red { /* Para énfasis en puntos críticos */
+             font-weight: bold;
+        }
+        .firma {
+            margin-top: 48px; /* Más espacio antes de la firma */
+            text-align: center;
+            font-weight: bold;
+        }
+        .proemio-block {
+             margin-bottom: 24px;
+             text-align: left;
+        }
+        .proemio-line {
+            margin-bottom: 4px; /* Menos espacio entre líneas del proemio */
+        }
+        .autoridad-destinataria {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .section-divider {
+            border-top: 1px dashed #999999; /* Línea punteada más visible */
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+        .anexos-list ol {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .anexos-list li {
+            margin-bottom: 6px; /* Espacio entre anexos listados */
+            padding-left: 0;
+            position: relative;
+        }
+         .anexos-list li::before {
+             content: ""; /* Sin viñeta especial para la lista de pruebas en la demanda */
+         }
+         /* Estilos para impresión */
+         @media print {
+            body { background-color: white; font-size: 12pt; }
+            .container { box-shadow: none; border: none; margin: 0; width: 100%; min-height: 0; padding: 1in; }
+            .download-button-container { display: none; }
+         }
+        .download-button-container {
+            text-align: center;
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px solid #e5e7eb;
+        }
+        .download-button {
+            background-color: #16a34a;
+            color: white;
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt;
+        }
+        .download-button:hover {
+            background-color: #15803d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="proemio-block">
+            <p class="proemio-line"><strong>EXPEDIENTE NÚMERO:</strong> __________________</p>
+            <p class="proemio-line"><strong>ACTOR:</strong> VÍCTOR MANUEL GUTIÉRREZ VERDUZCO</p>
+            <p class="proemio-line" style="padding-left: 4.5em;">(Por propio derecho y en representación del menor V.E.J.G.M.)</p>
+            <p class="proemio-line"><strong>AUTORIDAD DEMANDADA:</strong> COMISIÓN EJECUTIVA ESTATAL DE ATENCIÓN A VÍCTIMAS DEL ESTADO DE SONORA (CEEAV) y su Titular.</p>
+            <p class="proemio-line"><strong>VÍA:</strong> ORDINARIA CONTENCIOSO ADMINISTRATIVA</p>
+        </div>
+
+        <p class="autoridad-destinataria">
+            H. PLENO DEL TRIBUNAL DE JUSTICIA ADMINISTRATIVA<br>
+            DEL ESTADO DE SONORA.<br>
+            P R E S E N T E.
+        </p>
+
+        <p>
+            <strong>VÍCTOR MANUEL GUTIÉRREZ VERDUZCO</strong>, mexicano, mayor de edad, señalando como domicilio para oír y recibir toda clase de notificaciones el ubicado en Callejón Venustiano Carranza número 62, Colonia Centro, Huatabampo, Sonora, C.P. 85900; autorizando para los mismos efectos a los C.C. LICS. \[Nombres de abogados autorizados, si los hay], conforme al artículo 24 de la Ley 159 de Procedimiento Administrativo; señalando correo electrónico <strong>[TU CORREO ELECTRÓNICO AQUÍ]</strong> y teléfono <strong>[TU NÚMERO TELEFÓNICO AQUÍ]</strong>; comparezco por mi propio derecho y en legal representación de mi menor hijo <strong>V.E.J.G.M.</strong> (víctima directa), personalidad acreditada con acta de nacimiento (<span class="anexo-ref">Anexo 1</span>); con fundamento en los artículos 1°, 4°, 8°, 14, 16, 17, 20 Apartado C, 73 Fracción XXIX-X y 133 de la Constitución Política de los Estados Unidos Mexicanos (CPEUM); artículos 1.1, 2, 5, 8, 19, 24, 25 y 63.1 de la Convención Americana sobre Derechos Humanos (CADH); la <span class="law-citation">Ley General de Víctimas (LGV)</span>; la <span class="law-citation">Ley de Responsabilidad Patrimonial para el Estado de Sonora y sus Municipios (Ley 4 Resp. Pat.)</span>; la <span class="law-citation">Ley 159 de Procedimiento Administrativo del Estado de Sonora</span>; y la <span class="law-citation">Ley 185 de Justicia Administrativa para el Estado de Sonora</span>, vengo a interponer formal **DEMANDA CONTENCIOSO ADMINISTRATIVA** en contra de las autoridades señaladas, reclamando los actos y omisiones que a continuación se precisan:
+        </p>
+
+        <h2>II. AUTORIDAD DEMANDADA</h2>
+        <ol>
+            <li><strong>COMISIÓN EJECUTIVA ESTATAL DE ATENCIÓN A VÍCTIMAS DEL ESTADO DE SONORA (CEEAV)</strong>, con domicilio conocido en Avenida Tehuantepec S/N, Plaza Bicentenario, Planta Baja, Colonia Centenario, C.P. 83260, Hermosillo, Sonora.</li>
+            <li><strong>LIC. LYZETH SALCEDO SALINAS</strong>, en su carácter de Comisionada Ejecutiva Titular de la CEEAV Sonora, con el mismo domicilio.</li>
+        </ol>
+
+        <h2>III. TERCERO INTERESADO</h2>
+        <p>Bajo protesta de decir verdad, manifiesto que no existe tercero interesado.</p>
+
+        <h2>IV. ACTOS Y OMISIONES IMPUGNADOS</h2>
+        <p>Se impugna la <strong class="highlight-red">ACTIVIDAD ADMINISTRATIVA IRREGULAR</strong> de las demandadas, manifestada en los siguientes actos y omisiones, así como en su conducta omisiva continuada, los cuales sirven de base fáctica para solicitar la intervención de este H. Tribunal y la aplicación preferente de la normativa federal y constitucional:</p>
+        <ol>
+            <li>El <strong>Oficio CEEAV-SON-UE/1467/2024</strong> de fecha 30 de octubre de 2024, mediante el cual se niega indebidamente el otorgamiento de medidas de ayuda inmediata, protección y reembolsos. (<span class="anexo-ref">Anexo 2</span>)</li>
+            <li>El <strong>Oficio CEEAV-SON-2047/2024</strong> de fecha 5 de noviembre de 2024, mediante el cual se reitera la negativa de reembolso aplicando incorrectamente el principio de complementariedad. (<span class="anexo-ref">Anexo 3</span>)</li>
+            <li>La <strong class="highlight-red">OMISIÓN CONTINUADA Y PERMANENTE</strong> de cumplir las obligaciones impuestas por la LGV y la CPEUM, de otorgar <span class="important-point">ayuda inmediata y asistencia integral</span> (médica, psicológica, rehabilitación, educativa, etc.) a mi hijo V.E.J.G.M. desde su reconocimiento como víctima; adoptar <span class="important-point">medidas de protección efectivas</span> ante el hostigamiento denunciado; iniciar el procedimiento de <span class="important-point">reparación integral</span>; y actuar con <span class="important-point">debida diligencia y enfoque diferencial</span>, evitando la revictimización.</li>
+            <li>La **NEGATIVA FICTA** configurada respecto a solicitudes específicas de mis escritos de 24 y 28 de octubre de 2024 (<span class="anexo-ref">Anexos 4 y 5</span>), en lo que no fue expresamente resuelto o fue omitido.</li>
+            <li>La **ACTIVIDAD ADMINISTRATIVA IRREGULAR GENERALIZADA**, consistente en la aplicación de criterios restrictivos e interpretaciones contrarias a la LGV y la Constitución.</li>
+        </ol>
+
+        <h2>V. OPORTUNIDAD DE LA DEMANDA</h2>
+        <p>
+            Los oficios expresos se impugnan dentro del plazo legal. Las omisiones son de <strong class="important-point">tracto sucesivo y carácter continuado</strong>. Conforme a la jurisprudencia aplicable (PC.II.A. J/23 A (10a.); 2a./J. 48/2016 (10a.)) y al plazo de prescripción para responsabilidad patrimonial por daños continuos (Art. 28 Ley 4 Resp. Pat.), la demanda es <strong class="important-point">oportuna</strong>.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <h2>VI. ANTECEDENTES (HECHOS)</h2>
+        <p>Bajo protesta de decir verdad, narro los hechos relevantes:</p>
+        <ol>
+            <li><strong>Origen del Daño y Reconocimiento como Víctima:</strong> Mi hijo V.E.J.G.M. (n. 27/03/2018) sufrió negligencia médica neonatal que le causó secuelas permanentes (mielomeningocele roto, hidrocefalia, etc.) (<span class="anexo-ref">Anexos 6, 7, 8</span>). El 30/08/2024, el MP de Huatabampo lo reconoció formalmente como VÍCTIMA DIRECTA (Carpeta CI/NAV/135/81/00417/9-2020) (<span class="anexo-ref">Anexo 9</span>).</li>
+            <li>**Registro CEEAV:** El 20/09/2024 fuimos inscritos en el REV Sonora (<span class="anexo-ref">Anexo 10</span>).</li>
+            <li><strong>Solicitudes Formales a CEEAV (Oct/2024):** Ante las graves necesidades, presenté solicitudes (<span class="anexo-ref">Anexo 4</span>) y recordatorio (<span class="anexo-ref">Anexo 5</span>) pidiendo ayuda inmediata, protección urgente (por hostigamiento documentado <span class="anexo-ref">Anexo 23</span>) y reparación integral.</strong></li><strong>
+            <li><strong>Negativas y Omisiones de CEEAV:** Respondieron con los oficios impugnados (<span class="anexo-ref">Anexos 2 y 3</span>), negando la ayuda bajo pretextos ilegales, persistiendo en la omisión. Se evidencia una priorización indebida de gastos (pago de honorarios a abogado <span class="anexo-ref">Anexo 25</span>) sobre las necesidades vitales del menor.</strong></li><strong>
+            <li><strong>Contexto Agravante y Revictimización:** Esta actuación se da en un marco de retraso penal (+7 años), hostigamiento, obstrucción de denuncia (<span class="anexo-ref">Anexo 11</span>), amparos previos con irregularidades (<span class="anexo-ref">Anexos 11, 12, 13</span>), conversación con Comisionada (<span class="anexo-ref">Anexo 14</span>) que sugiere intento de arreglo superficial e influencias, y marco normativo estatal no armonizado (<span class="anexo-ref">Anexos 15-20</span>), configurando <strong class="highlight-red">revictimización institucional</strong>.</strong></li><strong>
+        </strong></strong></strong></ol><strong><strong><strong>
+
+         <div class="section-divider"></div>
+
+        <h2>VII. CONCEPTOS DE VIOLACIÓN / NULIDAD / IMPUGNACIÓN</h2>
+        <p>Los actos y omisiones impugnados son ilegales e inconstitucionales:</p>
+
+        <h3>PRIMERO.- VIOLACIÓN AL PRINCIPIO DE SUPREMACÍA CONSTITUCIONAL E INVASIÓN DE FACULTADES LEGISLATIVAS FEDERALES. SOLICITUD DE CONTROL DIFUSO DE CONSTITUCIONALIDAD Y CONVENCIONALIDAD (Arts. 1, 73 fr. XXIX-X y 133 CPEUM; Arts. 1.1 y 2 CADH).</h3>
+        <p>El <strong class="important-point">argumento central y primordial</strong> de esta demanda es la <strong class="highlight-red">inconstitucionalidad e inconvencionalidad</strong> de la <span class="law-citation">Ley Número 4 de Atención a Víctimas para el Estado de Sonora</span> y/o de su aplicación restrictiva por parte de la CEEAV, por contravenir el marco normativo superior establecido por la Constitución Federal y la <span class="law-citation">Ley General de Víctimas (LGV)</span>.</p>
+        <p>La LGV es la ley general que, por mandato expreso del Artículo 73, fracción XXIX-X de la CPEUM, establece los <strong class="important-point">estándares mínimos obligatorios</strong> y la concurrencia de competencias en materia de derechos de las víctimas para toda la República.</p>
+        <blockquote class="article-quote"><strong>Constitución Política de los Estados Unidos Mexicanos, Artículo 73.-</strong> El Congreso tiene facultad: [...] XXIX-X. Para expedir la <strong>ley general</strong> que establezca la concurrencia de la federación, las entidades federativas, los Municipios y, en su caso, las demarcaciones territoriales de la Ciudad de México, en el ámbito de sus respectivas competencias, en materia de <strong>derechos de las víctimas.</strong></blockquote>
+        <p>Conforme al <strong class="important-point">Artículo 133 de la CPEUM</strong>, la Constitución, las leyes federales que de ella emanen (como la LGV) y los tratados internacionales son la Ley Suprema de la Unión, y las autoridades estatales (incluido este H. Tribunal) deben ajustar sus actos a ellas, <strong class="important-point">a pesar de disposiciones en contrario en leyes estatales</strong>.</p>
+        <blockquote class="article-quote"><strong>Constitución Política de los Estados Unidos Mexicanos, Artículo 133.-</strong> Esta Constitución, las leyes del Congreso de la Unión que de ella emanen y todos los Tratados que estén de acuerdo con la misma, celebrados y que se celebren por el Presidente de la República, con aprobación del Senado, serán la <strong>Ley Suprema de toda la Unión</strong>. Los jueces de cada entidad federativa se arreglarán a dicha Constitución, leyes y tratados, <strong>a pesar de las disposiciones en contrario que pueda haber en las Constituciones o leyes de las entidades federativas.</strong></blockquote>
+        <p>Los análisis jurídicos comparativos (<span class="anexo-ref">Anexos 15 a 20</span>) demuestran que la Ley 4 de Sonora presenta <strong class="highlight-red">falta de armonización, contradicciones y estándares inferiores</strong> respecto a la LGV. Por ejemplo, el Artículo 50 de la Ley 4 de Sonora impone requisitos para la compensación subsidiaria que no están en el Artículo 67 de la LGV, y el principio de "Factibilidad" (Art. 4 Ley 4 Sonora) puede usarse para restringir derechos que la LGV otorga de forma más amplia.</p>
+        <p>Por lo tanto, con fundamento en el Artículo 133 Constitucional y el deber de todas las autoridades de proteger los derechos humanos bajo el principio pro persona (Art. 1 CPEUM), se solicita respetuosamente a este H. Tribunal que, al resolver el presente asunto, ejerza el <strong class="important-point">CONTROL DIFUSO DE CONSTITUCIONALIDAD Y CONVENCIONALIDAD</strong> y, en consecuencia:</p>
+        <ol type="a">
+            <li>Declare la <strong class="important-point">inaplicabilidad</strong> al caso concreto de cualquier disposición de la Ley 4 de Sonora o de sus lineamientos operativos que resulte contraria, restrictiva o inferior a los derechos, principios y mecanismos establecidos en la Ley General de Víctimas, la Constitución Federal y la Convención Americana sobre Derechos Humanos.</li>
+            <li>Resuelva la presente controversia aplicando de manera <strong class="important-point">preferente y directa</strong> las disposiciones de la Ley General de Víctimas, la Constitución y la Convención Americana, por ser las normas de mayor jerarquía y que otorgan la protección más amplia a la víctima menor de edad.</li>
+        </ol>
+
+        <h3>SEGUNDO.- VIOLACIÓN AL PRINCIPIO DE LEGALIDAD Y DEBIDA FUNDAMENTACIÓN Y MOTIVACIÓN (Art. 14 y 16 CPEUM; Art. 4 Ley 159).</h3>
+        <p>Los oficios impugnados (<span class="anexo-ref">Anexos 2 y 3</span>) carecen de la debida fundamentación y motivación (Art. 16 CPEUM; Art. 4, fr. IV Ley 159). No justifican, a la luz de la LGV (norma preferente), la negativa de las medidas urgentes. Son actos arbitrarios y <strong class="important-point">nulos</strong> (Art. 6 Ley 159).</p>
+        <blockquote class="article-quote"><strong>Ley 159 de Procedimiento Administrativo del Estado de Sonora, Artículo 4.-</strong> Son elementos y requisitos del acto administrativo: [...] IV.- Estar debidamente fundado y motivado; [...]</blockquote>
+
+        <h3>TERCERO.- VIOLACIÓN DIRECTA A LA LEY GENERAL DE VÍCTIMAS (LGV) Y AL PRINCIPIO DE MÁXIMA PROTECCIÓN (Art. 1° CPEUM; Arts. 5, 8, 9, 26, 27, 30, 34, 40, 41, 101, 111, 132 LGV).</h3>
+        <p>La CEEAV viola múltiples mandatos expresos de la LGV:</p>
+        <ul>
+            <li><strong>Incumplimiento del Deber de Ayuda Inmediata (Art. 8 LGV):</strong> Negaron ayuda "provisional, oportuna y rápida" debida "a partir del momento" del conocimiento de la calidad de víctima, condicionándola ilegalmente a una sentencia.
+                <blockquote class="article-quote"><strong>Ley General de Víctimas, Artículo 8.-</strong> Las víctimas recibirán ayuda provisional, oportuna y rápida de los Recursos de Ayuda de la Comisión Ejecutiva o de las Comisiones de víctimas de las entidades federativas, de acuerdo a las necesidades inmediatas que tengan relación directa con el hecho victimizante para atender y garantizar la satisfacción de sus necesidades de alimentación, aseo personal, manejo de abastecimientos, atención médica y psicológica de emergencia, transporte de emergencia y alojamiento transitorio en condiciones dignas y seguras, a partir del momento de la comisión del delito o de la violación de los derechos, o en el momento en el que las autoridades tengan conocimiento del delito o de la violación de derechos. [...]</blockquote>
+            </li>
+            <li><strong>Incumplimiento del Deber de Asistencia y Atención (Arts. 9, 34 LGV):** Negaron asistencia médica y psicológica especializada y permanente.
+                <blockquote class="article-quote"><strong>Ley General de Víctimas, Artículo 34.-</strong> En materia de asistencia y atención médica, psicológica, psiquiátrica y odontológica, la víctima tendrá todos los derechos establecidos por la Ley General de Salud para los Usuarios de los Servicios de Salud, y tendrá los siguientes derechos adicionales: I. A que se proporcione gratuitamente atención médica y psicológica permanente de calidad en cualquiera de los hospitales públicos federales, de las entidades federativas y municipales, de acuerdo a su competencia, cuando se trate de lesiones, enfermedades y traumas emocionales provenientes del delito o de la violación a los derechos humanos sufridos por ella. Estos servicios se brindarán de manera permanente, cuando así se requiera, y no serán negados, aunque la víctima haya recibido las medidas de ayuda que se establecen en la presente Ley. [...]</blockquote>
+            </strong></li><strong>
+            <li><strong>Incumplimiento del Deber de Protección (Arts. 40, 41 LGV):** Omitieron medidas de protección inmediatas ante el riesgo denunciado, ignorando la vulnerabilidad del menor y la obligación de actuar con carácter inmediato.
+                <blockquote class="article-quote"><strong>Ley General de Víctimas, Artículo 40.-</strong> Cuando la víctima se encuentre amenazada en su integridad personal o en su vida o existan razones fundadas para pensar que estos derechos están en riesgo, en razón del delito o de la violación de derechos humanos sufrida, las autoridades de todos los ámbitos de gobierno, en el marco de sus competencias, adoptarán con carácter inmediato, las medidas que sean necesarias para evitar que la víctima sufra alguna lesión o daño. [...] Serán sancionados administrativa, civil o penalmente, según corresponda, los servidores públicos que por intimidación, represalias, amenazas, negligencia o cualquiera otra causa, contribuyan a poner en riesgo la seguridad de las víctimas [...]</blockquote>
+                <blockquote class="article-quote"><strong>Ley General de Víctimas, Artículo 41.-</strong> Las medidas adoptadas deberán ser acordes con la amenaza que tratan de conjurar y deberán tener en cuenta la condición de especial vulnerabilidad de las víctimas, respetando en todos los casos su dignidad. [...]</blockquote>
+            </strong></li><strong>
+            <li><strong>Violación al Acceso a Recursos desde el Reconocimiento (Arts. 101 fr. III, 111 LGV):** Ignoraron que el reconocimiento por MP habilita acceso a ayuda y reparación sin necesidad de sentencia.
+                <blockquote class="article-quote"><strong>Ley General de Víctimas, Artículo 111.-</strong> El reconocimiento de la calidad de víctima tendrá como efecto: I. El acceso a los derechos, garantías, mecanismos y procedimientos previstos en esta Ley y en los tratados internacionales; II. Al reconocerse su calidad de víctima, ésta podrá acceder a los Recursos de Ayuda y a la reparación integral en los términos de esta Ley. [...]</blockquote>
+            </strong></li><strong>
+             <li><strong>Violación al Principio de No Revictimización (Art. 5 LGV):** La negativa injustificada, la burocracia, el condicionamiento ilegal de la ayuda, y la posible manipulación de la asistencia legal (<span class="anexo-ref">Anexo 14</span>, <span class="anexo-ref">Anexo 25</span>) constituyen una clara revictimización.</strong></li><strong>
+        </strong></strong></strong></strong></ul><strong><strong><strong>
+
+        <h3>CUARTO.- VIOLACIÓN AL INTERÉS SUPERIOR DE LA NIÑEZ Y DERECHOS DE PERSONAS CON DISCAPACIDAD (Art. 1° y 4° CPEUM; Convención sobre los Derechos del Niño; Convención sobre los Derechos de las Personas con Discapacidad; Art. 5 LGV).</h3>
+        <p>La CEEAV ignoró la <strong class="highlight-red">doble vulnerabilidad</strong> de mi hijo. El Art. 4° CPEUM y los tratados exigen priorizar su interés superior y aplicar un enfoque diferencial. La negativa de atención viola estos mandatos.</p>
+
+        <h3>QUINTO.- VIOLACIÓN AL DERECHO A LA REPARACIÓN INTEGRAL Y RESPONSABILIDAD PATRIMONIAL DEL ESTADO (Art. 1°, 20 C, 109 últ. párr. CPEUM; Art. 63.1 CADH; Arts. 26, 27 LGV; Ley 4 Resp. Pat. Sonora).</h3>
+        <p>La actuación de CEEAV es <strong class="important-point">actividad administrativa irregular</strong> (Art. 2 fr. I, Ley 4 Resp. Pat.), causando daños continuados. Conforme al Art. 109 CPEUM y Ley 4 Resp. Pat., el Estado (vía CEEAV) es <strong class="important-point">responsable directo y objetivo</strong> y debe <strong class="important-point">reparar integralmente</strong> (Art. 11 Ley 4 Resp. Pat.; Arts. 26, 27 LGV). Se reclama la responsabilidad patrimonial.</p>
+
+        <h3>SEXTO.- OMISIÓN CONTINUADA Y OPORTUNIDAD DE LA DEMANDA.</h3>
+        <p>Las omisiones de CEEAV son de <strong class="important-point">tracto sucesivo y carácter continuado</strong>. Conforme a jurisprudencia (PC.II.A. J/23 A (10a.); 2a./J. 48/2016 (10a.)), la acción para impugnar la omisión <strong class="important-point">no está sujeta al plazo de 15 días</strong> (Art. 47 Ley 185). El plazo de 1 año para responsabilidad patrimonial por daños continuos (Art. 28 Ley 4 Resp. Pat.) se renueva. La demanda es oportuna.</p>
+
+        <div class="section-divider"></div>
+
+        <h2>VIII. PRUEBAS</h2>
+        <p>Con fundamento en los artículos 77, 78 y demás relativos de la Ley 185, ofrezco las siguientes pruebas:</p>
+        <div class="anexos-list">
+            <ol>
+                <li>Documental Pública: Acta de Nacimiento del menor V.E.J.G.M. (<span class="anexo-ref">Anexo 1</span>).</li>
+                <li>Documental Pública: Oficio CEEAV-SON-UE/1467/2024 (30/Oct/2024). (<span class="anexo-ref">Anexo 2</span>).</li>
+                <li>Documental Pública: Oficio CEEAV-SON-2047/2024 (05/Nov/2024). (<span class="anexo-ref">Anexo 3</span>).</li>
+                <li>Documental Privada: Escrito de Solicitud a CEEAV (24/Oct/2024). (<span class="anexo-ref">Anexo 4</span>).</li>
+                <li>Documental Privada: Escrito Recordatorio Urgente a CEEAV (28/Oct/2024). (<span class="anexo-ref">Anexo 5</span>).</li>
+                <li>Documental Pública: Nota de Egreso ISSSTESON H.M.O. (23/Abr/2018). (<span class="anexo-ref">Anexo 6</span>).</li>
+                <li>Documental Pública: Solicitud de Interconsulta Real ISSSTESON (02-03/Abr/2018). (<span class="anexo-ref">Anexo 7</span>).</li>
+                <li>Documental Pública: Nota de Evolución ISSSTESON H.M.O. (05/Abr/2018). (<span class="anexo-ref">Anexo 8</span>).</li>
+                <li>Documental Pública: Oficio MP Huatabampo CI/NAV/135/81/00417/9-2020 (30/Ago/2024). (<span class="anexo-ref">Anexo 9</span>).</li>
+                <li>Documental Pública: Oficio CEEAV-SON-RE/692/2024 (20/Sep/2024). (<span class="anexo-ref">Anexo 10</span>).</li>
+                <li>Documental Pública: Copias de Escrito y Resolución del Amparo Indirecto 88/2025 (Ej. Escrito del 25/Mar/2025). (<span class="anexo-ref">Anexo 11</span>).</li>
+                <li>Documental Pública: Copia de Sentencia del Amparo Indirecto 442/2025 (28/Mar/2025). (<span class="anexo-ref">Anexo 12</span>).</li>
+                <li>Documental Pública: Copia del Recurso de Revisión del Amparo 442/2025 (11/Abr/2025). (<span class="anexo-ref">Anexo 13</span>).</li>
+                <li>Documental Privada: Transcripción Conversación Comisionada. (<span class="anexo-ref">Anexo 14</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Penal Federal vs Sonora. (<span class="anexo-ref">Anexo 15</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Civil Federal vs Sonora. (<span class="anexo-ref">Anexo 16</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Víctimas Federal vs Sonora. (<span class="anexo-ref">Anexo 17</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Víctimas (Detalle Sonora). (<span class="anexo-ref">Anexo 18</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Salud Federal vs Sonora. (<span class="anexo-ref">Anexo 19</span>).</li>
+                <li>Documental (Análisis Jurídico): Comparativo Responsabilidades Servidores y Patrimonial. (<span class="anexo-ref">Anexo 20</span>).</li>
+                <li>Documental Pública: Acuerdo Boletín Oficial Sonora (23/May/2024). (<span class="anexo-ref">Anexo 21</span>).</li>
+                <li>Documental Privada: Muestra representativa de Informes Médicos, Recetas, Facturas. (<span class="anexo-ref">Anexo 22</span>).</li>
+                <li>Documental Privada: Fotografías Hostigamiento (Oct/2024). (<span class="anexo-ref">Anexo 23</span>).</li>
+                <li>Documental Pública: Identificación Oficial del Actor. (<span class="anexo-ref">Anexo 24</span>).</li>
+                <li>Documental Pública: Oficio CEEAV-SON-UE-1560-2024 (25/Nov/2024). (<span class="anexo-ref">Anexo 25</span>).</li>
+                <li>Documental Pública: Determinación Medida de Ayuda Atención Psicológica (15/Nov/2024). (<span class="anexo-ref">Anexo 26</span>).</li>
+                <li>Documental Pública: Oficio CEEAV-SON-PSIC/2568/2024 (21/Nov/2024). (<span class="anexo-ref">Anexo 27</span>).</li>
+                <li>Documental Privada: Escrito de Respuesta/Refutación al Oficio ...1467/2024 (04/Nov/2024 aprox.). (<span class="anexo-ref">Anexo 28</span>).</li>
+                <li>Instrumental de Actuaciones.</li>
+                <li>Presuncional Legal y Humana.</li>
+                <li>Jurisprudencial: Las invocadas sobre omisión continuada y demás aplicables.</li>
+            </ol>
+        </div>
+        <p><strong>Nota:</strong> Me reservo el derecho de ofrecer pruebas supervenientes.</p>
+
+        <h2>IX. SUSPENSIÓN DEL ACTO IMPUGNADO</h2>
+        <p>No se solicita.</p>
+
+        <div class="section-divider"></div>
+
+        <h2>X. PUNTOS PETITORIOS</h2>
+        <p>Por lo anteriormente expuesto y fundado, a este H. Tribunal atentamente **PIDO:**</p>
+        <ol>
+            <li><strong>PRIMERO.-** Tenerme por presentado en tiempo y forma, demandando a la CEEAV Sonora y su Titular.</strong></li><strong>
+            <li><strong>SEGUNDO.-** Reconocer mi personalidad.</strong></li><strong>
+            <li><strong>TERCERO.-** Admitir la demanda y ordenar emplazamiento.</strong></li><strong>
+            <li><strong>CUARTO.-** Tener por ofrecidas y admitidas las pruebas.</strong></li><strong>
+            <li><strong>QUINTO.-** Ejercer el **control difuso**, inaplicando normas estatales contrarias a LGV, CPEUM y Tratados.</strong></li><strong>
+            <li><strong>SEXTO.-** Dictar sentencia declarando la **NULIDAD** de los oficios impugnados (<span class="anexo-ref">Anexos 2 y 3</span>).</strong></li><strong>
+            <li><strong>SÉPTIMO.-** Declarar la existencia de la **ACTIVIDAD ADMINISTRATIVA IRREGULAR** por omisión continuada.</strong></li><strong>
+            <li><strong>OCTAVO.-** **CONDENAR** a las demandadas a otorgar la ayuda inmediata, asistencia, protección y reparación integral conforme a la LGV y los más altos estándares.</strong></li><strong>
+            <li><strong>NOVENO.-** Condenar a las demandadas al pago de la **indemnización por responsabilidad patrimonial del Estado**.</strong></li><strong>
+            <li><strong>DÉCIMO.-** Tener por señalado domicilio y autorizados.</strong></li><strong>
+        </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></ol><strong><strong><strong>
+
+        <p class="firma">
+            PROTESTO LO NECESARIO<br>
+            Hermosillo, Sonora, a 10 de fecha y hora de su presentación.<br><br><br>
+            _________________________________________<br>
+            <strong>VÍCTOR MANUEL GUTIÉRREZ VERDUZCO</strong><br>
+            (Actor, por propio derecho y en representación del menor V.E.J.G.M.)
+        </p>
+
+        
+
+    </strong></strong></strong></strong></strong></strong></strong></strong></strong></div><strong><strong>
+
+    <script>
+        function downloadHTML() {
+            const clonedDocument = document.documentElement.cloneNode(true);
+            const buttonContainer = clonedDocument.querySelector('.download-button-container');
+            if (buttonContainer) {
+                buttonContainer.parentNode.removeChild(buttonContainer);
+            }
+            const htmlContent = '<!DOCTYPE html>\\n<html lang="es">' + clonedDocument.innerHTML + '</html>';
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'demanda_tja_vs_ceav_final_formal_v4.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+
+
+</strong></strong></body></html>

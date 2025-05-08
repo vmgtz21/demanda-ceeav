@@ -1,0 +1,437 @@
+<!DOCTYPE html>\n<html lang="es"><head><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    const errorString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  window.addEventListener('error', function(event) {
+    const errorString = event.message + ' (' + event.filename + ':' + event.lineno + ':' + event.colno + ') ' + (event.error ? event.error.stack : '');
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva: Pasos para Presentar Demanda ante TJA Sonora (Propio Derecho)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+            padding: 1rem;
+        }
+        .container {
+            max-width: 5xl; /* Ancho */
+            margin: 1rem auto;
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.5rem; /* 2xl */
+            font-weight: 600; /* semibold */
+            color: #1e3a8a; /* blue-800 */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #dbeafe; /* blue-100 */
+            padding-bottom: 0.75rem;
+        }
+         h3 {
+            font-size: 1.25rem; /* xl */
+            font-weight: 600; /* semibold */
+            color: #1d4ed8; /* blue-700 */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #60a5fa; /* blue-400 */
+        }
+         h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af; /* blue-600 */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        p, li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #374151; /* gray-700 */
+            margin-bottom: 0.75rem;
+            text-align: justify;
+        }
+        ul { list-style-type: '✓ '; margin-left: 1.5rem; } /* Usar checkmark como viñeta */
+        ol { list-style-type: decimal; margin-left: 1.5rem; }
+        strong, .font-semibold { font-weight: 600; color: #1f2937; /* gray-800 */}
+        .step-container {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1.5rem;
+            overflow: hidden; /* Para bordes redondeados */
+        }
+        .step-header {
+            background-color: #eff6ff; /* blue-50 */
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #dbeafe; /* blue-100 */
+        }
+        .step-header h4 {
+            margin: 0;
+            color: #1e40af; /* blue-600 */
+            font-size: 1.15rem;
+        }
+        .step-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+        .step-header.open .arrow {
+            transform: rotate(180deg);
+        }
+        .step-content {
+            display: none;
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+            background-color: #f9fafb; /* gray-50 */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .step-content.open {
+            display: block;
+            max-height: 1000px; /* Ajustar si es necesario */
+            padding: 1.5rem;
+        }
+        .warning {
+            background-color: #fffbeb; /* yellow-50 */
+            border-left: 4px solid #facc15; /* yellow-400 */
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            color: #ca8a04; /* yellow-600 */
+            font-weight: 500;
+        }
+        .checklist li {
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .checklist li::before {
+            content: '☐'; /* Cuadro vacío */
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 1.2em;
+            color: #9ca3af; /* gray-400 */
+        }
+        /* Podrías añadir JS para marcar como completado, pero lo dejamos simple */
+
+        .download-button-container {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .download-button {
+            background-color: #16a34a; /* green-600 */
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .download-button:hover {
+            background-color: #15803d; /* green-700 */
+        }
+         /* Estilos para impresión */
+         @media print {
+            body { background-color: white; padding: 0; margin: 0; font-size: 10pt; }
+            .container { box-shadow: none; border: none; margin: 0; width: 100%; max-width: 100%; padding: 0.5in; border-radius: 0;}
+            .step-header { background-color: #f3f4f6; } /* Gris claro para headers */
+            .step-content { display: block; max-height: none; padding: 1rem 0; border-top: none; background-color: white; } /* Mostrar contenido al imprimir */
+            .step-header .arrow { display: none; } /* Ocultar flechas */
+            .download-button-container { display: none; }
+            h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+            h3 { font-size: 1.1rem; }
+            h4 { font-size: 1rem; }
+            p, li { font-size: 10pt; line-height: 1.5; }
+            .warning { border-left-width: 2px; padding: 0.5rem; }
+            .checklist li::before { content: '- '; left: -1em;} /* Cambiar checklist por guion */
+         }
+
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.mt-4{margin-top:1rem}.text-center{text-align:center}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}</style></head>
+<body>
+    <div class="container">
+        <h2>Guía Práctica: Presentación Demanda TJA Sonora (Por Propio Derecho)</h2>
+        <p class="text-center text-gray-600">Pasos y consideraciones clave para presentar tu demanda contra la CEEAV ante el Tribunal de Justicia Administrativa de Sonora.</p>
+
+        <div class="step-container">
+            <div class="step-header">
+                <h4>Paso 1: Preparación Final de la Demanda y Anexos</h4>
+                <span class="arrow" style="transform: rotate(0deg);">▼</span>
+            </div>
+            <div class="step-content" style="display: block; padding: 0px 1.5rem;">
+                <h4>Revisión de la Demanda:</h4>
+                <ul>
+                    <li>Verifica que la versión final de la demanda (<code>demanda_tja_vs_ceav_revisada_v3</code>) contenga todos tus argumentos, hechos y peticiones correctamente.</li>
+                    <li>Completa los datos pendientes (autorizados, correo, teléfono, fecha final "a 10 de fecha y hora de su presentación").</li>
+                    <li>Revisa la redacción, ortografía y gramática.</li>
+                    <li>**Firma Autógrafa:** Firma la demanda en el espacio correspondiente. Tu firma es suficiente al actuar por propio derecho y en representación de tu hijo.</li>
+                </ul>
+                <h4>Preparación de Anexos:</h4>
+                 <ul class="checklist">
+                    <li>Reúne TODOS los documentos listados en la "Guía de Anexos para el Usuario" (`guia_anexos_demanda_tja_v4`).</li>
+                    <li>Numera físicamente cada documento como "Anexo 1", "Anexo 2", etc., siguiendo el orden de la guía.</li>
+                    <li>Verifica que la numeración física coincida con las referencias en la demanda (ej. "(<span class="anexo-ref">Anexo 1</span>)").</li>
+                    <li>Saca las copias necesarias:
+                        <ul>
+                            <li><strong>1 Juego ORIGINAL</strong> (Demanda firmada + Anexos originales o copias certificadas/simples) -&gt; Para el Tribunal.</li>
+                            <li><strong>1 Juego de COPIAS SIMPLES</strong> (Demanda + TODOS los Anexos) -&gt; Para traslado a CEEAV.</li>
+                            <li><strong>1 Juego de COPIAS SIMPLES</strong> (Demanda + TODOS los Anexos) -&gt; Para traslado a la Comisionada Titular.</li>
+                            <li><strong>1 Juego de COPIAS SIMPLES</strong> (Demanda + TODOS los Anexos) -&gt; Para tu ACUSE DE RECIBO.</li>
+                            <li><em>(Recomendado: 1 juego de copias extra para tus archivos).</em></li>
+                        </ul>
+                    </li>
+                     <li>Asegura la legibilidad de todas las copias.</li>
+                 </ul>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-header">
+                <h4>Paso 2: Presentación Física en el TJA Sonora</h4>
+                 <span class="arrow" style="transform: rotate(0deg);">▼</span>
+            </div>
+            <div class="step-content" style="padding-top: 0px; padding-bottom: 0px;">
+                <h4>Ubicación y Horarios:</h4>
+                <ul>
+                    <li>La demanda se presenta en la **Oficialía de Partes del Pleno del Tribunal de Justicia Administrativa del Estado de Sonora**.</li>
+                    <li>Confirma la dirección exacta en Hermosillo y los horarios de atención vigentes antes de acudir.</li>
+                </ul>
+                <h4>Entrega de Documentos:</h4>
+                 <ul>
+                    <li>Entrega el juego ORIGINAL completo y los 3 juegos de COPIAS.</li>
+                    <li>Sé claro y ordenado al entregar los documentos.</li>
+                </ul>
+                 <h4>¡ACUSE DE RECIBO! (Fundamental):</h4>
+                 <ul>
+                    <li>Exige que te sellen y firmen de recibido tu copia de la demanda.</li>
+                    <li>Si es posible, pide que te sellen también una hoja simple donde enlistes los anexos entregados (ej. "Se entregan Anexos 1 al 28").</li>
+                    <li><strong class="warning">¡NO TE RETIRES SIN TU ACUSE SELLADO Y FIRMADO!</strong> Es tu única prueba de que presentaste la demanda y los anexos en esa fecha. Guárdalo en un lugar muy seguro.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-header">
+                <h4>Paso 3: Seguimiento del Expediente y Próximos Pasos</h4>
+                 <span class="arrow" style="transform: rotate(0deg);">▼</span>
+            </div>
+            <div class="step-content" style="padding-top: 0px; padding-bottom: 0px;">
+                <h4>Acuerdo Inicial (Admisión, Prevención o Desechamiento):</h4>
+                <ul>
+                    <li>El TJA asignará un número de expediente a tu demanda.</li>
+                    <li>En los días siguientes a la presentación, el Magistrado Instructor dictará un acuerdo inicial. Debes estar MUY ATENTO a la notificación de este acuerdo.</li>
+                    <li><strong>Si te Admiten:</strong> El acuerdo indicará que la demanda se admite, ordenará notificar (emplazar) a la CEEAV y a su titular, les dará 15 días hábiles para contestar, y fijará fecha para la Audiencia de Pruebas y Alegatos (usualmente dentro de 45 días hábiles).</li>
+                    <li><strong>Si te Previenen (Art. 52 Ley 185):</strong> Si falta algún requisito formal (ej. aclarar algo, falta un documento no probatorio), te darán 5 días hábiles para subsanarlo. <strong class="warning">¡Cumplir esta prevención en tiempo es CRUCIAL!</strong> Si no lo haces, pueden desechar tu demanda.</li>
+                    <li><strong>Si Desechan (Art. 54 Ley 185):</strong> Si consideran que la demanda es improcedente desde el inicio (raro si cumples los requisitos), la desecharán. Contra este acuerdo procede el Recurso de Revisión (5 días hábiles - Art. 99, 101 Ley 185).</li>
+                </ul>
+                 <h4>Notificaciones:</h4>
+                 <ul>
+                    <li>Establece un sistema para revisar DIARIAMENTE el medio de notificación que señalaste (Boletín Judicial del TJA, estrados, correo electrónico si lo aceptan). No confíes en que te llamarán.</li>
+                    <li>Si te notifican por lista o estrados, los plazos empiezan a correr al día hábil siguiente.</li>
+                 </ul>
+                 <h4>Contestación y Posible Ampliación:</h4>
+                  <ul>
+                    <li>Una vez que la CEEAV conteste, te notificarán su escrito.</li>
+                    <li>Tendrás 5 días hábiles para presentar una **Ampliación de Demanda** (Art. 48 Ley 185) si necesitas refutar argumentos nuevos de la contestación o si impugnaste negativa ficta. Es tu oportunidad para un "segundo round" argumentativo.</li>
+                    <li>Si amplías, la CEEAV tendrá 5 días para contestar la ampliación (Art. 55 Ley 185).</li>
+                 </ul>
+                  <h4>Pruebas y Audiencia:</h4>
+                  <ul>
+                    <li>Las pruebas documentales se desahogan por sí mismas.</li>
+                    <li>Si ofreciste otras (testimonial, pericial - aunque no aplica aquí), el TJA indicará cómo se desahogarán, usualmente en la Audiencia.</li>
+                    <li>En la Audiencia de Pruebas y Alegatos (Art. 83 Ley 185), podrás presentar tus alegatos finales (argumentos conclusivos) de forma verbal (tiempo limitado) o por escrito (puedes presentarlos unos días antes).</li>
+                  </ul>
+                   <h4>Sentencia y Recursos:</h4>
+                   <ul>
+                    <li>Después de la audiencia, el TJA tiene 15 días hábiles para dictar sentencia (Art. 88 Ley 185).</li>
+                    <li>Si la sentencia es desfavorable, puedes interponer el **Recurso de Revisión** ante el mismo Pleno del TJA (plazo de 15 días hábiles - Art. 100 Ley 185).</li>
+                    <li>Si la resolución de la Revisión sigue siendo desfavorable, el siguiente paso es el **Amparo Directo** ante un Tribunal Colegiado Federal (plazo de 15 días hábiles), que es la vía que te interesa estratégicamente.</li>
+                   </ul>
+            </div>
+        </div>
+
+         <div class="step-container">
+            <div class="step-header">
+                <h4>Paso 4: Consideraciones Clave al Litigar por Propio Derecho</h4>
+                 <span class="arrow" style="transform: rotate(0deg);">▼</span>
+            </div>
+            <div class="step-content" style="padding-top: 0px; padding-bottom: 0px;">
+                 <ul class="checklist">
+                    <li><strong>Organización Extrema:</strong> Mantén una carpeta física y/o digital impecable con copias de TODO: demanda, anexos, acuses, notificaciones, acuerdos, escritos que presentes, etc. Anota todas las fechas clave.</li>
+                    <li><strong>Cumplimiento de Plazos:</strong> Es lo más crítico. Usa un calendario, pon alarmas. Perder un plazo puede ser fatal para el caso.</li>
+                    <li><strong>Lenguaje Claro y Respetuoso:</strong> Aunque estés indignado (con justa razón), mantén un lenguaje formal y respetuoso en tus escritos al Tribunal. Enfócate en los argumentos legales y los hechos probados.</li>
+                    <li><strong>Fundamentación Legal:</strong> Refiere siempre los artículos clave de las leyes (Ley 185, Ley 4, Ley 159, LGV, CPEUM, CADH) que respaldan tus argumentos. Citar textualmente los artículos más importantes, como hiciste en la demanda, es buena estrategia.</li>
+                    <li><strong>Pruebas Claras:</strong> Asegúrate que tus pruebas documentales sean legibles y estén bien referenciadas en tus escritos.</li>
+                    <li><strong>Peticiones Concretas:</strong> En cada escrito, sé claro en lo que estás pidiendo al Tribunal (que admita, que requiera, que resuelva, etc.).</li>
+                    <li><strong>No Confíes, Verifica:</strong> No asumas nada. Revisa constantemente el expediente (si te dan acceso electrónico o acudiendo al Tribunal), verifica las notificaciones, confirma que tus escritos se agreguen correctamente.</li>
+                    <li><strong>Invoca la Suplencia:</strong> En cada oportunidad relevante, recuerda al Tribunal su obligación de aplicar la suplencia de la queja en favor de tu hijo menor y por afectación al núcleo familiar (Art. 79 Ley Amparo, aplicable por principio pro persona e interés superior).</li>
+                    <li><strong>Mantén el Enfoque Estratégico:</strong> Recuerda tu objetivo a largo plazo (llegar al amparo directo con legitimación). Cada paso ante el TJA debe construir ese camino, agotando la instancia correctamente y dejando constancia de todas las violaciones y argumentos.</li>
+                 </ul>
+                 <div class="warning">
+                    <strong>¡Atención!</strong> Litigar por propio derecho es complejo. Si en algún punto sientes que necesitas apoyo legal especializado, considera buscar asesoría pro-bono o de organizaciones de derechos humanos. Sin embargo, tu conocimiento del caso y tu determinación son tus mayores fortalezas.
+                 </div>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-header open">
+                <h4>Diagrama de Flujo Simplificado del Proceso (Texto)</h4>
+                 <span class="arrow" style="transform: rotate(180deg);">▼</span>
+            </div>
+            <div class="step-content open" style="padding: 1.5rem; display: block; max-height: 952px;">
+                <ol>
+                    <li>**Presentación Demanda** (Tú) -&gt; TJA recibe.</li>
+                    <li>**Acuerdo Inicial TJA** (Magistrado Instructor):
+                        <ul>
+                            <li>Opción A: **Prevención** (Falta requisito/anexo) -&gt; Tú subsanas (5 días) -&gt; Vuelve a Acuerdo Inicial. (Si no subsanas -&gt; Desechamiento).</li>
+                            <li>Opción B: **Desechamiento** (Improcedencia manifiesta) -&gt; Fin (o Recurso Revisión - 5 días).</li>
+                            <li>Opción C: **Admisión** -&gt; Ordena Emplazamiento y fija fecha Audiencia.</li>
+                        </ul>
+                    </li>
+                    <li>**Emplazamiento** (TJA notifica a CEEAV/Titular).</li>
+                    <li>**Contestación Demanda** (CEEAV - 15 días) -&gt; TJA te notifica contestación.</li>
+                    <li>**Ampliación Demanda** (Opcional - Tú - 5 días) -&gt; TJA notifica ampliación a CEEAV.</li>
+                    <li>**Contestación Ampliación** (CEEAV - 5 días) -&gt; TJA te notifica.</li>
+                    <li>**(Periodo Probatorio)** (Pruebas documentales ya están; otras se preparan).</li>
+                    <li>**Audiencia de Pruebas y Alegatos** (Fecha fijada en admisión) -&gt; Desahogo pruebas pendientes -&gt; Alegatos -&gt; Citación para Sentencia.</li>
+                    <li>**Sentencia** (TJA - 15 días post-audiencia):
+                        <ul>
+                            <li>Opción A: **Favorable** (Nulidad/Condena) -&gt; CEEAV debe cumplir (o tú inicias Ejecución).</li>
+                            <li>Opción B: **Desfavorable** -&gt; Tú puedes interponer Recurso de Revisión (15 días).</li>
+                        </ul>
+                    </li>
+                    <li>**Recurso de Revisión** (Tú - 15 días) -&gt; TJA (Pleno) resuelve Revisión.
+                         <ul>
+                            <li>Opción A: **Confirma Sentencia Desfavorable** -&gt; Tú puedes interponer Amparo Directo (15 días).</li>
+                            <li>Opción B: **Revoca/Modifica Sentencia** -&gt; Resultado favorable o nuevo trámite según ordene.</li>
+                        </ul>
+                    </li>
+                     <li>**Amparo Directo** (Tú - 15 días post-Revisión) -&gt; Tribunal Colegiado Federal -&gt; Posible Facultad de Atracción SCJN.</li>
+                </ol>
+                <p class="text-sm text-gray-500 mt-4">(Nota: Este es un flujo simplificado. Pueden surgir incidentes, pruebas supervenientes, etc., que modifiquen los pasos. Consulta siempre la Ley 185).</p>
+            </div>
+        </div>
+
+
+        
+    </div>
+
+    <script>
+        // Script para manejar el despliegue/colapso de secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const stepHeaders = document.querySelectorAll('.step-header');
+
+            stepHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const arrow = header.querySelector('.arrow');
+                    const isOpen = content.classList.contains('open');
+
+                    // Cierra todos los demás antes de abrir/cerrar el actual
+                    stepHeaders.forEach(otherHeader => {
+                        if (otherHeader !== header) {
+                            otherHeader.classList.remove('open');
+                            otherHeader.querySelector('.arrow').style.transform = 'rotate(0deg)';
+                            const otherContent = otherHeader.nextElementSibling;
+                            otherContent.classList.remove('open');
+                            otherContent.style.maxHeight = null;
+                            otherContent.style.paddingTop = '0';
+                            otherContent.style.paddingBottom = '0';
+                        }
+                    });
+
+                    // Abre o cierra la sección actual
+                    header.classList.toggle('open', !isOpen);
+                    content.classList.toggle('open', !isOpen);
+                    arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+
+                    if (!isOpen) {
+                        // Abrir
+                        content.style.display = 'block'; // Asegura que sea visible para medir scrollHeight
+                        content.style.padding = '1.5rem';
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        // Cerrar
+                        content.style.maxHeight = '0';
+                         content.style.paddingTop = '0';
+                         content.style.paddingBottom = '0';
+                         // Ocultar después de la transición (opcional, mejora rendimiento)
+                         setTimeout(() => {
+                            if (!content.classList.contains('open')) {
+                                content.style.display = 'none';
+                            }
+                         }, 500); // Coincide con la duración de la transición
+                    }
+                });
+            });
+        });
+
+        function downloadHTML() {
+            const clonedDocument = document.documentElement.cloneNode(true);
+            const buttonContainer = clonedDocument.querySelector('.download-button-container');
+            if (buttonContainer) {
+                buttonContainer.parentNode.removeChild(buttonContainer);
+            }
+            const htmlContent = '<!DOCTYPE html>\\n<html lang="es">' + clonedDocument.innerHTML + '</html>';
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'guia_presentacion_demanda_tja.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+
+
+</body></html>

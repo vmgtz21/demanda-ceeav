@@ -1,0 +1,344 @@
+<html lang="es"><head><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    const errorString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  window.addEventListener('error', function(event) {
+    const errorString = event.message + ' (' + event.filename + ':' + event.lineno + ':' + event.colno + ') ' + (event.error ? event.error.stack : '');
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demanda Contencioso Administrativa vs CEEAV Sonora</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 2.5cm 2cm; /* Márgenes: Superior/Inferior 2.5cm, Izquierdo/Derecho 2cm */
+            color: #000000;
+            background-color: #ffffff;
+        }
+        h1, h2, h3 {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+            text-align: center; /* Centrar títulos */
+        }
+        h1 { /* Título Principal */
+            font-size: 14pt;
+            text-transform: uppercase;
+        }
+        h2 { /* Encabezados de Sección */
+            font-size: 13pt;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-align: center;
+        }
+        h3 { /* Sub-encabezados (Conceptos) */
+            font-size: 12pt;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-align: left; /* Alinear a la izquierda */
+            margin-left: 1cm;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 1em; /* Espacio entre párrafos */
+            text-indent: 1.27cm; /* Sangría estándar (0.5 pulgadas) */
+        }
+        p.no-indent {
+             text-indent: 0;
+        }
+        .promovente, .autoridad-demandada {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .fundamento-legal-intro {
+            font-size: 11pt;
+            color: #000000;
+            margin-bottom: 1.5em;
+            text-align: justify;
+            text-indent: 0;
+        }
+        .cita-legal {
+            font-style: italic;
+        }
+        .anexo-ref {
+            font-style: italic;
+            font-weight: bold;
+        }
+        .cita-textual {
+            font-style: italic;
+            margin-left: 2cm; /* Mayor sangría para citas textuales */
+            margin-right: 2cm;
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            padding-left: 1cm;
+            border-left: 1px solid #000; /* Línea sobria a la izquierda */
+        }
+        .punto-petitorio-titulo {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+         .punto-petitorio-contenido {
+             /* Se elimina display:inline para flujo normal */
+         }
+        .firma {
+            margin-top: 5em;
+            text-align: center;
+            font-weight: bold;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5cm;
+            text-align: justify;
+        }
+        ol li {
+             margin-bottom: 0.5em;
+             text-indent: 0; /* Sin sangría adicional en items de lista */
+        }
+        ol ol {
+             list-style-type: lower-alpha;
+             margin-left: 1cm;
+        }
+         ol ol li {
+             text-indent: 0;
+         }
+        ul {
+             list-style-type: '- ';
+             margin-left: 1.5cm;
+             text-align: justify;
+        }
+         ul li {
+             margin-bottom: 0.5em;
+             text-indent: 0;
+         }
+         .jurisprudencia-ref { /* Estilo para la referencia a jurisprudencia */
+             font-weight: bold;
+             /* color: #00008B; */ /* Azul oscuro */
+         }
+         .jurisprudencia-bloque { /* Bloque para explicar la jurisprudencia */
+             font-weight: normal;
+             background-color: #f5f5f5; /* Gris muy claro */
+             padding: 0.8em;
+             margin-top: 1em;
+             margin-bottom: 1em;
+             border: 1px solid #ccc; /* Borde delgado gris */
+             font-style: italic;
+             text-indent: 0;
+             margin-left: 1cm;
+             margin-right: 1cm;
+         }
+         .jurisprudencia-bloque strong {
+            font-weight: bold;
+            font-style: normal;
+            display: block;
+            margin-bottom: 0.5em;
+            /* color: #00008B; */
+         }
+         .highlight {
+             font-weight: bold; /* Usar negritas en lugar de fondo */
+         }
+         .violacion-critica {
+             font-weight: bold;
+             text-decoration: underline; /* Subrayar puntos críticos */
+         }
+         /* Estilo para el botón de descarga */
+        .download-button-container { /* Contenedor para centrar el botón */
+             text-align: center;
+             margin-top: 3em;
+             margin-bottom: 1em;
+        }
+        .download-button {
+            display: inline-block; /* Para que respete el centrado */
+            padding: 8px 16px; /* Botón más pequeño */
+            background-color: #6c757d; /* Gris */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10pt; /* Letra más pequeña */
+            font-family: Arial, sans-serif;
+            text-decoration: none; /* Quitar subrayado si se usa <a> */
+        }
+        .download-button:hover {
+            background-color: #5a6268;
+        }
+
+        @media print {
+            body {
+                margin: 2cm 1.5cm;
+            }
+            .download-button-container { /* Ocultar contenedor al imprimir */
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <p class="no-indent" style="text-align: right;">
+        <strong>ASUNTO:</strong> Se interpone Demanda Administrativa.
+    </p>
+
+    <h2>C. MAGISTRADO(A) PRESIDENTE(A) Y DEMÁS MAGISTRADOS INTEGRANTES<br>
+        DEL TRIBUNAL DE JUSTICIA ADMINISTRATIVA<br>
+        DEL ESTADO DE SONORA.<br>
+        P R E S E N T E.</h2>
+
+    <h2>IV. HECHOS:</h2>
+    <ol>
+        <li>Mi menor hijo, VÍCTOR EMMANUEL DE JESÚS GUTIÉRREZ MORALES, nacido el 27 de marzo de 2018, fue víctima de negligencia médica al nacer, lo que le ocasionó secuelas permanentes graves, incluyendo meningocele, hidrocefalia (con válvula de derivación), malformación de Chiari II, problemas en columna vertebral, falta de control de esfínteres y limitaciones motoras severas, tal como se acredita con la Reclamación por Responsabilidad Patrimonial presentada ante ISSSTESON (<span class="anexo-ref">Anexo 11</span>).</li>
+        <li>Derivado de estos hechos, se inició la carpeta de investigación CI/NAV/135/81/00417/9-2020 (NUC SON/HER/FGE/2020/091/37080) por el delito de Responsabilidad Médica. Es relevante señalar que, a la fecha de presentación de esta demanda, han transcurrido cerca de 7 años de iniciado este procedimiento penal sin una resolución definitiva, lo cual evidencia una dilación injustificada y un posible <strong class="violacion-critica">error judicial por negligencia del Ministerio Público</strong>, factor que debe ser considerado en la reparación integral conforme al <span class="cita-legal">Artículo 146 de la LGV</span> y la jurisprudencia (ej. <strong>Amparo en Revisión 201/2021</strong>, que si bien trató sobre responsabilidad de funcionarios, subraya la necesidad de sanciones proporcionales ante negligencia).</li>
+        <li>Mediante oficios de fecha 30 de agosto de 2024, emitidos por la Agencia Investigadora del Ministerio Público Sector I de Huatabampo, Sonora, se reconoció formalmente a mi hijo como <span class="highlight">víctima directa</span> y a mi esposa Rosa Lizeth Morales Ochoa y a mí como <span class="highlight">víctimas indirectas</span>.</li>
+        <li>Con fecha 20 de septiembre de 2024, fuimos inscritos en el Registro Estatal de Víctimas, asignándose los folios CEEAV-SON-REV-828-2024 (mi hijo), CEEAV-SON-REV-829-2024 (el suscrito) y CEEAV-SON-REV-830-2024 (mi esposa).</li>
+        <li>Desde el reconocimiento como víctimas, hemos enfrentado enormes y continuos gastos médicos, terapéuticos y de subsistencia derivados de la condición de mi hijo, incluyendo pañales especializados, medicamentos no cubiertos por ISSSTESON, silla de ruedas, consultas particulares, y constantes traslados a Hermosillo y Tijuana para atención especializada, generando una situación económica familiar insostenible, como se acredita con los documentos que obran en el expediente administrativo que deberá remitir la demandada. Hemos tenido que recurrir incluso a pagos a abogados particulares, como el Lic. Jesús Alann Robles Díaz por la cantidad de $18,214.58 MXN (consta en <span class="anexo-ref">Anexo 9</span>), ante la ineficacia de la asesoría pública.</li>
+        <li>El 24 de octubre de 2024, presenté formalmente ante la CEEAV Sonora una solicitud detallada y fundada de <span class="highlight">medidas de ayuda inmediata, asistencia, atención y protección</span>, conforme a la Ley General de Víctimas y la Ley Estatal, incluyendo el reembolso de gastos urgentes ya erogados y la cobertura de necesidades futuras (médicas, transporte -incluyendo aéreo-, hospedaje, alimentación, insumos, apoyo psicológico, etc.). En dicho escrito también solicité expresamente <span class="highlight">medidas de protección</span> ante actos de hostigamiento sufridos. (Consta en <span class="anexo-ref">Anexo 10</span>).</li>
+        <li>Los actos de hostigamiento consistieron en seguimientos por vehículos sospechosos (presumiblemente ministeriales) y toma de fotografías en diversas fechas (18, 23 y 24 de octubre de 2024), generando temor fundado por nuestra seguridad e integridad. Estos hechos fueron documentados con fotografías y se señaló la existencia de videograbaciones en recintos públicos y privados que podrían corroborarlos, tal como se manifestó en escrito presentado ante la CEEAV y en la refutación al informe de la Fiscalía (<span class="anexo-ref">Anexo 8</span>).</li>
+        <li>El 28 de octubre de 2024, ante la falta de respuesta y la continuación del riesgo, presenté un <span class="highlight">recordatorio urgente</span> a la CEEAV, reiterando la necesidad imperiosa de las medidas de ayuda y, sobre todo, de protección. (Consta en <span class="anexo-ref">Anexo 10</span>).</li>
+        <li>Mediante oficio <span class="highlight">CEEAV-SON-UE/1467/2024</span> del 30 de octubre de 2024 (<span class="anexo-ref">Anexo 10</span> / <span class="anexo-ref">Anexo 9</span>), la CEEAV respondió <strong class="violacion-critica">negando las medidas de ayuda y protección</strong> solicitadas. Fundamentó su negativa de manera incorrecta y restrictiva, argumentando que la ayuda y la compensación dependían de la resolución de una apelación sobre el No Ejercicio de la Acción Penal (NEAP) o de una sentencia ejecutoriada, y que la protección era facultad exclusiva de la autoridad ministerial o judicial. Esta respuesta <strong class="violacion-critica">ignora deliberadamente</strong> que los médicos imputados en la carpeta de investigación <span class="highlight">ya habían fallecido</span>, hecho que actualiza el supuesto del <span class="cita-legal">Artículo 67 inciso a) de la Ley General de Víctimas</span> para la procedencia de la compensación subsidiaria sin necesidad de sentencia, y omite su propia obligación de gestionar o dictar medidas de protección urgentes (<span class="cita-legal">Art. 40 LGV</span>). Esta exigencia de sentencia ejecutoriada es contraria a la LGV y a criterios jurisprudenciales (ej. <strong>Amparo en Revisión 456/2023</strong>, que ordenó medidas inmediatas en caso de desaparición forzada sin esperar sentencia).</li>
+        <li>El 31 de octubre de 2024, en un intento por obtener protección, acudí a la Fiscalía General de Justicia del Estado para presentar denuncia por hostigamiento. Dicha autoridad inicialmente se negó a recibirla y, tras mi insistencia, elaboró un documento que no reflejaba fielmente mis declaraciones, obligándome a no firmarlo por falta de veracidad, tal como se detalla en la refutación (<span class="anexo-ref">Anexo 8</span>).</li>
+        <li>El 5 de noviembre de 2024, mediante oficio <span class="highlight">CEEAV-SON-2047/2024</span> (<span class="anexo-ref">Anexo 10</span>), la CEEAV <strong class="violacion-critica">volvió a negar</strong> el reembolso de gastos médicos específicos (estudios especializados), argumentando que contábamos con derechohabiencia ISSSTESON y aplicando erróneamente el principio de complementariedad para negar la ayuda, sin valorar la insuficiencia probada del servicio público para las necesidades especializadas y urgentes de mi hijo, y omitiendo pronunciarse sobre el resto de las medidas solicitadas.</li>
+        <li>Ante estas negativas flagrantes y la vulneración de nuestros derechos, me vi obligado a promover el <span class="highlight">juicio de amparo indirecto 88/2025</span> ante el Juzgado Décimo Primero de Distrito en el Estado (<span class="anexo-ref">Anexo 6</span>). En dicho juicio, la autoridad hoy demandada rindió informes previo y justificado (<span class="anexo-ref">Anexos 1, 2 y 9</span>) en los que persistió en negar los actos y en sostener sus interpretaciones restrictivas y contrarias a la Ley General de Víctimas.</li>
+        <li>Durante el trámite del amparo y otros procedimientos relacionados (como el Exp. Pre. 008/2024 del Juzgado Oral Penal de Navojoa - <span class="anexo-ref">Anexo 7</span>), he constatado la <span class="highlight">falta de una adecuada defensa y acompañamiento</span> por parte de los asesores jurídicos que deberían garantizar nuestros derechos, como se desprende de la transcripción de la audiencia del 24 de abril de 2025 (<span class="anexo-ref">Anexo 4</span>). A esta situación se suma la <strong class="violacion-critica">irregularidad</strong> de haber contado con la autorización (según consta en la reclamación <span class="anexo-ref">Anexo 11</span> y en escrito presentado ante el TJA el 09 de septiembre de 2024 - <span class="anexo-ref">Anexo 14</span>) de los CC. **Patricia Duarte Franco** y **José Francisco García Quintana**, quienes fueron presentados por nuestro entonces abogado patrono como "abogados penalistas" con experiencia, sin que contaran con registro profesional como Licenciados en Derecho (la primera registrada como Contador Público y Auditor con cédula federal 6233437, aunque posteriormente obtuvo la cédula estatal de Derecho 068675 en 2021; el segundo como Químico Biólogo con cédula federal 11624131 y cédula estatal 068670, sin que esta última acredite ser de Derecho), y quienes, independientemente de la validez formal de la cédula estatal de la C. Duarte para ejercer en Sonora, **omitieron brindar asesoría jurídica efectiva** o acompañamiento en audiencias, contribuyendo con ello a la revictimización y a la violación del derecho a una defensa adecuada (<span class="cita-legal">Art. 12, 58 LGV</span>).</li>
+        <li>Resulta alarmante y demostrativo de la falta de imparcialidad y posible abuso de autoridad, el contenido de la conversación sostenida con la propia Comisionada Ejecutiva Estatal, Lic. Lyzeth Salcedo Salinas, posterior a una audiencia del 27 de septiembre, en la cual <strong class="violacion-critica">admite haber ejercido influencias indebidas con el vicefiscal y con el tribunal</strong> para afectar los procedimientos en mi contra, según consta en la transcripción identificada como `comisionada.txt` (<span class="anexo-ref">Anexo 3</span>).</li>
+        <li>Finalmente, la CEEAV aplica de manera continua <span class="highlight">lineamientos internos</span>, como los publicados el 23 de mayo de 2024 (<span class="anexo-ref">Anexo 12</span>), que establecen <strong class="violacion-critica">montos y condiciones evidentemente restrictivos e insuficientes</strong> para las medidas de ayuda (ej. viáticos de \$300 diarios para "gastos de camino" que no cubren ni el transporte básico interurbano; 1 UMA mensual para desarrollo social condicionada a orfandad total o discapacidad severa), lo cual resulta revictimizante y contraviene los principios de reparación integral, adecuada, diferenciada y efectiva establecidos en la Ley General de Víctimas y la jurisprudencia aplicable.</li>
+    </ol>
+
+     <h2>V. CONCEPTOS DE IMPUGNACIÓN (VIOLACIÓN / INCONSTITUCIONALIDAD):</h2>
+
+    <h3>PRIMERO.- Violación Directa y Continuada a los Derechos Fundamentales a la Salud, a la Reparación Integral, al Interés Superior de la Niñez, a la Protección, a la Asistencia y a la Debida Diligencia.</h3>
+    <p><strong>Normas Violadas:</strong> <span class="cita-legal">Artículos 1°, 4° y 17 CPEUM; Artículos 1.1, 5, 8, 19, 25 y 63.1 CADH; Artículos 1, 2, 5 (principios), 7, 8, 9, 26, 27, 30, 31, 34, 38, 39, 39 Bis, 40, 41, 64, 67 LGV; Artículos 2, 4, 5, 8, 9, 33, 41, 50 Ley 235; Artículos 3, 18, 19, 76 Ley 159.</span></p>
+    <p><strong>Argumentación:</strong> La autoridad demandada, CEEAV Sonora, mediante la negativa sistemática e indebidamente fundada de las medidas de ayuda inmediata, asistencia y protección solicitadas (Actos Impugnados 1 y 2, Hechos 9 y 11), ha vulnerado de forma directa y continua los derechos fundamentales de mi hijo menor, VÍCTOR EMMANUEL DE JESÚS GUTIÉRREZ MORALES, y de nuestra familia. La negativa a cubrir gastos médicos indispensables, terapias, insumos vitales (silla de ruedas, pañales especiales), transporte adecuado a su condición para citas médicas fuera de la localidad, alojamiento y alimentación, viola flagrantemente su derecho a la salud (<span class="cita-legal">Art. 4 CPEUM</span>) y a recibir la asistencia necesaria para su rehabilitación y desarrollo (<span class="cita-legal">Arts. 8, 9, 30, 34, 38, 39, 39 Bis LGV</span>). Esta negativa, basada en interpretaciones restrictivas y erróneas (como supeditar todo a sentencia ejecutoriada ignorando el <span class="cita-legal">Art. 67a LGV</span> por muerte de responsables, o aplicar indebidamente el principio de complementariedad), incumple la obligación estatal de garantizar una reparación integral, adecuada, diferenciada, transformadora y efectiva (<span class="cita-legal">Art. 1 CPEUM; Art. 63.1 CADH; Art. 26 LGV</span>). Se ignora por completo el <span class="highlight">interés superior de la niñez</span> (<span class="cita-legal">Art. 4 CPEUM; Art. 19 CADH</span>), que exige una protección reforzada y prioritaria. La omisión de brindar medidas de protección ante el hostigamiento documentado (Acto Impugnado 2, Hecho 7) viola el derecho a la seguridad e integridad (<span class="cita-legal">Arts. 40, 41 LGV; Art. 5 CADH</span>). Todo ello evidencia una falta absoluta de debida diligencia por parte de la CEEAV (<span class="cita-legal">Art. 5 LGV</span>) y viola los principios de eficacia y buena fe (<span class="cita-legal">Art. 3 Ley 159</span>), generando revictimización y perpetuando el daño. La aplicación de lineamientos con montos irrisorios (Acto Impugnado 4, Hecho 15) es una manifestación más de esta violación al derecho a una asistencia adecuada y efectiva, contraviniendo el deber de la autoridad de resolver garantizando el interés público y los derechos de los particulares (<span class="cita-legal">Art. 19, 76 Ley 159</span>).</p>
+    <p class="jurisprudencia-bloque">
+        <strong>Argumento Jurisprudencial sobre Reparación Integral y Límite de Compensación:</strong> La negativa de la CEEAV a otorgar una reparación integral que considere la totalidad de los daños sufridos, incluyendo el daño moral, el proyecto de vida afectado de un menor de edad con secuelas permanentes, y los posibles daños punitivos derivados de la negligencia médica y la posterior revictimización institucional, viola los estándares establecidos por la Suprema Corte de Justicia de la Nación y la Corte Interamericana de Derechos Humanos. La interpretación restrictiva que pretende limitar la compensación subsidiaria al tope de 500 UMA (<span class="cita-legal">Art. 50 Ley 235 / Art. 67 LGV</span>) es contraria al principio de reparación integral (<span class="cita-legal">Art. 63.1 CADH</span>). La jurisprudencia nacional, derivada de casos como el de la <span class="jurisprudencia-ref">Guardería ABC (Amparos en Revisión 1133/2019 y 337/2020)</span>, ha establecido que la reparación debe ser justa y adecuada a la magnitud del daño, ponderando factores como la gravedad de la violación, las circunstancias del caso, el sufrimiento causado (daño moral), la pérdida de oportunidades, el lucro cesante, y la necesidad de medidas de satisfacción y no repetición. Dicha jurisprudencia ha sido clara en rechazar que el tope legal de 500 UMA constituya un límite infranqueable, debiendo los juzgadores (y las autoridades administrativas en cumplimiento de sus obligaciones) ponderar todos los elementos para garantizar una reparación verdaderamente integral, especialmente ante daños permanentes a un menor y posible actividad administrativa gravemente irregular, como ocurre en el presente caso. La CEEAV ignora estos precedentes vinculantes.
+    </p>
+
+    <h3>SEGUNDO.- Violación a los Principios de Legalidad, Jerarquía Normativa y Supremacía Constitucional. Necesidad de Control Difuso.</h3>
+    <p><strong>Normas Violadas:</strong> <span class="cita-legal">Artículos 14, 16, 73 Fracción XXIX-X y 133 CPEUM; Artículo 2 CADH; Artículo 1 LGV; Artículos 1 y 50 Ley 235; Artículo 3 Ley 159.</span></p>
+    <p><strong>Argumentación:</strong> La autoridad demandada fundamenta sus actos y omisiones (particularmente la negativa de la compensación subsidiaria y la aplicación de lineamientos restrictivos – Actos Impugnados 1, 3, 4, 5) en la Ley Estatal 235 y sus lineamientos derivados, los cuales <strong class="violacion-critica">contravienen disposiciones expresas y estándares mínimos establecidos en la Ley General de Víctimas</strong> (federal), que es jerárquicamente superior por mandato constitucional (<span class="cita-legal">Art. 73 fr. XXIX-X y 133 CPEUM</span>). Específicamente, el <span class="cita-legal">Artículo 50 de la Ley Estatal</span> omite ilegalmente el supuesto del <span class="cita-legal">Artículo 67 inciso a) de la LGV</span> (muerte del responsable) para la procedencia de la compensación subsidiaria, exigiendo indebidamente una sentencia ejecutoriada. Esta contradicción directa viola la supremacía constitucional y el principio de legalidad (<span class="cita-legal">Art. 3 Ley 159</span>) al que debe sujetarse la autoridad. Asimismo, los lineamientos estatales que fijan montos insuficientes o condiciones excesivas (Acto Impugnado 5, Hecho 15) contravienen los principios de reparación integral y máxima protección de la LGV y la Constitución. La autoridad demandada está obligada a aplicar la norma más favorable (principio pro persona, <span class="cita-legal">Art. 1 CPEUM</span>) y a respetar la jerarquía normativa (<span class="cita-legal">Art. 133 CPEUM</span>), inaplicando las normas estatales o lineamientos que resulten contrarios a la Ley General y a la Constitución. Al no hacerlo, viola el principio de legalidad y supremacía constitucional.
+    <br><strong>Solicitud de Control Difuso:</strong> Por lo anterior, se solicita respetuosamente a este H. Tribunal que, en ejercicio del <strong>CONTROL DIFUSO DE CONSTITUCIONALIDAD Y CONVENCIONALIDAD</strong>, previsto implícitamente en la obligación de fundar y motivar sus resoluciones conforme a derecho (<span class="cita-legal">Art. 89 Ley 185</span>) y en atención al principio pro persona (<span class="cita-legal">Art. 1 CPEUM</span>), <strong>declare la inaplicabilidad</strong> al caso concreto del <strong>Artículo 50 de la Ley de Atención a Víctimas para el Estado de Sonora</strong>, en la porción normativa que exige sentencia ejecutoriada para la compensación subsidiaria y en cuanto pudiera interpretarse como un límite absoluto a la compensación, por ser contrario al Artículo 67 inciso a) de la Ley General de Víctimas, al Artículo 133 Constitucional y a los estándares de reparación integral establecidos en la jurisprudencia de la SCJN (ej. <span class="jurisprudencia-ref">AR 1133/2019</span>). Asimismo, se solicita se declare la <strong>inaplicabilidad de los Lineamientos Estatales</strong> (publicados el 23 de mayo de 2024 o cualquier otro aplicable) en cuanto establezcan montos o condiciones para las medidas de ayuda (transporte, desarrollo social, etc.) que resulten restrictivos, insuficientes o contrarios a los principios de reparación integral, adecuada, efectiva, interés superior del menor y máxima protección consagrados en la Ley General de Víctimas, la Constitución, la CADH y la jurisprudencia aplicable, ordenando la aplicación preferente de estas normas superiores.</p>
+
+    <h3>TERCERO.- Violación al Derecho a la Seguridad Jurídica, a la Protección, a la Integridad Personal, a una Defensa Adecuada y a no ser Revictimizado.</h3>
+    <p><strong>Normas Violadas:</strong> <span class="cita-legal">Artículos 1°, 16, 17, 20 CPEUM; Artículos 5, 8 y 25 CADH; Artículos 5 (principios), 8, 9, 12, 40, 41, 58, 145, 146 LGV; Artículo 3 Ley 159 (imparcialidad).</span></p>
+    <p><strong>Argumentación:</strong> La omisión de la CEEAV en dictar medidas de protección efectivas ante el hostigamiento denunciado (Acto Impugnado 2, Hecho 7), sumada a la posterior admisión de influencias indebidas por parte de su titular (Acto Impugnado 6, Hecho 14, <span class="anexo-ref">Anexo 3</span>) y la **falta de garantía de una defensa y asesoría jurídica adecuada y efectiva** (Hecho 13, <span class="anexo-ref">Anexo 4</span>), agravada por la **intervención irregular de los CC. Patricia Duarte Franco y José Francisco García Quintana** quienes fueron autorizados en procedimientos anteriores (<span class="anexo-ref">Anexo 11</span>, <span class="anexo-ref">Anexo 14</span>) ostentándose o siendo presentados como abogados sin contar con registro profesional federal para ello (la primera con cédula estatal de Derecho 068675 posterior a su cédula federal de Contadora; el segundo con cédula federal de Químico Biólogo y estatal 068670 de profesión desconocida), y quienes omitieron brindar asesoría jurídica efectiva o acompañamiento, crean un entorno de inseguridad jurídica y personal intolerable. Estas acciones no solo incumplen el deber estatal de protección (<span class="cita-legal">Arts. 40, 41 LGV</span>) y el derecho a contar con un asesor jurídico (<span class="cita-legal">Art. 12, 58 LGV</span>), sino que constituyen actos de <strong class="violacion-critica">revictimización institucional</strong> que atentan contra la dignidad e integridad psíquica y moral del suscrito y mi familia (<span class="cita-legal">Art. 5 LGV; Art. 5 CADH</span>), tal como ha sido reconocido en criterios jurisprudenciales (ej. <strong>Amparo en Revisión 234/2023</strong>). La aplicación de criterios cambiantes, la falta de transparencia, la violación al principio de imparcialidad (<span class="cita-legal">Art. 3 Ley 159</span>) y las presiones indebidas vulneran gravemente la seguridad jurídica y el derecho a un recurso efectivo (<span class="cita-legal">Art. 25 CADH</span>). La negligencia y omisiones prolongadas de las autoridades (incluyendo los 7 años de inacción del Ministerio Público y las demoras de la propia CEEAV, similar a lo señalado en el <strong>Incidente de Inejecución 1/2023</strong> del caso Guardería ABC) deben considerarse como factores agravantes de la victimización secundaria, conforme a los <span class="cita-legal">Artículos 145 y 146 de la LGV</span>.</p>
+
+    <h3>CUARTO.- Configuración de Actividad Administrativa Irregular y Violación a la Ley de Responsabilidad Patrimonial del Estado.</h3>
+    <p><strong>Normas Violadas:</strong> <span class="cita-legal">Artículo 109, último párrafo, CPEUM; Artículos 14, 15, 17, 18 Ley de Responsabilidad Patrimonial para el Estado de Sonora; Artículo 13 fr. IV y 76 Ley 185; Artículo 1916 Código Civil.</span></p>
+    <p><strong>Argumentación:</strong> La actuación de la autoridad demandada, al negar derechos, aplicar incorrectamente la normativa jerárquicamente superior, omitir sus deberes de asistencia y protección, y generar revictimización (Actos Impugnados 1 a 7), configura una <span class="highlight">actividad administrativa irregular</span> en términos de la Ley de Responsabilidad Patrimonial estatal y el <span class="cita-legal">Artículo 109 Constitucional</span>. Esta actividad irregular ha causado <span class="highlight">daños directos y continuos</span> a mi hijo menor y a nuestra familia, los cuales el Estado tiene la obligación de indemnizar (<span class="cita-legal">Art. 14, 15 Ley Resp. Patrimonial</span>). Los daños incluyen, enunciativamente:
+    </p><ul>
+        <li><strong>Daño Material:</strong> Gastos médicos, terapéuticos, de insumos, traslados, etc., no cubiertos indebidamente. Lucro cesante derivado de la imposibilidad de trabajar o la pérdida de oportunidades.</li>
+        <li><strong>Daño Moral:</strong> Sufrimiento, angustia, afectación a la dignidad, alteración del proyecto de vida familiar, derivados tanto de la negligencia médica original como de la revictimización institucional. La cuantificación debe considerar la jurisprudencia sobre la materia (ej. <strong>AR 1133/2019, AR 337/2020</strong>), que permite una valoración amplia y justa del daño moral, incluyendo el impacto en víctimas indirectas.</li>
+        <li><strong>Daños Punitivos:</strong> Dada la posible negligencia grave inicial, el error judicial prolongado (inacción del MP), y la actuación indebida y posiblemente dolosa de la autoridad demandada (influencias indebidas, negativas reiteradas e infundadas, omisión de deberes), procede considerar daños punitivos con efecto disuasivo, conforme a criterios jurisprudenciales (<strong>Facultad de Atracción 201/2019</strong>, <span class="cita-legal">Art. 1916 Código Civil</span> aplicado analógicamente), para prevenir futuras conductas similares por parte de las autoridades encargadas de proteger a las víctimas.</li>
+    </ul>
+    Se reclama la declaración de responsabilidad patrimonial y la condena al pago de la indemnización integral correspondiente, cuya cuantificación (incluyendo daño material, moral y punitivo) se realizará en la etapa procesal oportuna, mediante incidente de liquidación conforme al <span class="cita-legal">Artículo 76 de la Ley 185 de Justicia Administrativa</span>, tomando en cuenta los estándares jurisprudenciales sobre reparación integral que van más allá de topes meramente formales.<p></p>
+
+    <h2>VI. PRUEBAS:</h2>
+    <p class="no-indent">Con fundamento en los artículos <span class="cita-legal">77, 78 y demás relativos de la Ley 185 de Justicia Administrativa</span>, se ofrecen las siguientes pruebas, relacionándolas con los hechos y conceptos de violación expuestos:</p>
+    <ol>
+        <li><strong>DOCUMENTAL PÚBLICA:</strong> Consistente en copia certificada de la <strong>totalidad</strong> de las constancias que integran el <strong>Expediente Administrativo CEEAV-NUS-385-2024</strong>, radicado ante la Comisión Ejecutiva Estatal de Atención a Víctimas del Estado de Sonora. *Objeto: Acreditar solicitudes, negativas (Actos 1, 2), actuaciones y omisiones de la CEEAV.* (Solicitar requerimiento a la demandada).</li>
+        <li><strong>DOCUMENTAL PÚBLICA:</strong> Copias certificadas de Informes Previo y Justificado en Amparo 88/2025. (<span class="anexo-ref">Anexos 1 y 2</span>). *Objeto: Acreditar posturas ilegales de la demandada (Acto 3).*</li>
+        <li><strong>DOCUMENTAL PRIVADA:** Transcripción certificada/ratificada de conversación con Comisionada (`comisionada.txt`). (<span class="anexo-ref">Anexo 3</span>). *Objeto: Acreditar influencias indebidas, falta de imparcialidad (Acto 6, Hecho 14).*</strong></li><strong>
+        <li>**DOCUMENTAL PRIVADA:** Transcripción certificada/ratificada de audiencia 24 abril 2025 (`audiencia 24 de abril de 2025.txt`). (<span class="anexo-ref">Anexo 4</span>). *Objeto: Acreditar falta de defensa adecuada (Hecho 13).*</li>
+        <li>**DOCUMENTAL PRIVADA:** `Análisis Jurídico Leyes de Víctimas_.pdf`. (<span class="anexo-ref">Anexo 5</span>). *Objeto: Apoyo argumentativo (Conceptos II, IV).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple demanda amparo 88/2025. (<span class="anexo-ref">Anexo 6</span>). *Objeto: Contexto (Hecho 12).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple actuaciones Exp. Pre. 008/2024 (`24 de abril juzgado.pdf`). (<span class="anexo-ref">Anexo 7</span>). *Objeto: Contexto (Hecho 13).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple refutación informe Fiscalía (`6.pdf`). (<span class="anexo-ref">Anexo 8</span>). *Objeto: Acreditar hostigamiento y negativa de denuncia (Hechos 7, 10).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple Informe previo CEEAV (`ceeav.pdf`). (<span class="anexo-ref">Anexo 9</span>). *Objeto: Acreditar argumentos demandada (Acto 3).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple compendio oficios CEEAV (`ofcios ceeav completos.pdf`). (<span class="anexo-ref">Anexo 10</span>). *Objeto: Acreditar negativas CEEAV (Actos 1, 2).*</li>
+        <li>**DOCUMENTAL PRIVADA:** Copia simple Reclamación ISSSTESON (`RECLAMACION 2023.docx`). (<span class="anexo-ref">Anexo 11</span>). *Objeto: Acreditar origen daño, negligencia médica, daños sufridos (Hechos 1, 5, Concepto IV), y autorización irregular de P. Duarte y J.F. García (Hecho 13).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple Acuerdo Adicional Lineamientos Estatales (`2024CCXIII42III.pdf`). (<span class="anexo-ref">Anexo 12</span>). *Objeto: Acreditar lineamientos restrictivos (Acto 5, Hecho 15).*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Copia simple del escrito de fecha 09 de septiembre de 2024 presentado ante este H. Tribunal (Exp. 595/2024) donde se autoriza a Patricia Duarte Franco y José Francisco García Quintana. (<span class="anexo-ref">Anexo 14</span> - `PATRICIA DUARTE.jpg`). *Objeto: Acreditar la autorización mencionada en Hecho 13.*</li>
+        <li>**DOCUMENTAL PÚBLICA:** Consulta impresa del Registro Nacional de Profesionistas respecto a Patricia Duarte Franco (Cédula 6233437) y José Francisco García Quintana (Cédula 11624131). *Objeto: Acreditar que sus cédulas federales no corresponden a Licenciado en Derecho (Hecho 13).* (Se anexa como <span class="anexo-ref">Anexo 15</span>).</li>
+        <li>**DOCUMENTAL PÚBLICA:** Consulta impresa del Registro Estatal de Cédulas Profesionales de Sonora respecto a Patricia Duarte Franco (Cédula 068675). (<span class="anexo-ref">Anexo 16</span> - `registro patricvia abogada.jpg`). *Objeto: Acreditar la existencia de su cédula estatal de Derecho, pero contextualizar la irregularidad de la representación y falta de asesoría efectiva (Hecho 13, Concepto III).*</li>
+        <li>**LEGAL:** Consistente en los textos vigentes de la Ley General de Víctimas, Ley de Atención a Víctimas para el Estado de Sonora (Ley 235), Ley de Procedimiento Administrativo del Estado de Sonora (Ley 159), Ley de Justicia Administrativa para el Estado de Sonora (Ley 185), Ley de Responsabilidad Patrimonial del Estado de Sonora, Constitución Política de los Estados Unidos Mexicanos, Convención Americana sobre Derechos Humanos y demás ordenamientos citados. *Objeto: Fundamentar la demanda.*</li>
+        <li>**JURISPRUDENCIAL:** Consistente en los criterios relevantes emitidos por la Suprema Corte de Justicia de la Nación, particularmente los derivados de los Amparos en Revisión 1133/2019, 337/2020, 201/2021, la Facultad de Atracción 201/2019 y el Incidente de Inejecución 1/2023 (caso Guardería ABC), así como los Amparos en Revisión 121/2022, 456/2023, 234/2023 y el Amparo Directo 789/2024, y otros criterios aplicables sobre reparación integral, interés superior del menor, control de convencionalidad, responsabilidad patrimonial del Estado y victimización secundaria. *Objeto: Fundamentar la interpretación de las normas y la procedencia de las prestaciones reclamadas.* (Se anexan versiones públicas o se citan registros digitales como <span class="anexo-ref">Anexo 17</span>).</li>
+        <li>**INSTRUMENTAL DE ACTUACIONES:** Consistente en todo lo actuado y por actuarse dentro del presente juicio, en cuanto beneficie a los intereses del suscrito y mi menor hijo.</li>
+        <li>**PRESUNCIONAL LEGAL Y HUMANA:** Derivada de los hechos probados y de las normas aplicables, en todo lo que favorezca a los intereses del suscrito y mi menor hijo.</li>
+        <li>**(Opcional) PERICIALES:** Ofrecer periciales médicas (neurología, rehabilitación, etc.) y psicológicas para acreditar la magnitud del daño y las necesidades de reparación integral de mi hijo, si no se consideraran suficientes las documentales existentes.</li>
+    </strong></ol><strong>
+
+    <h2>VII. PUNTOS PETITORIOS:</h2>
+    <p class="no-indent">Por lo anteriormente expuesto y fundado, a este H. Tribunal de Justicia Administrativa, atentamente pido se sirva:</p>
+    <p><span class="punto-petitorio-titulo">PRIMERO.-</span> <span class="punto-petitorio-contenido">Tenerme por presentado con este escrito, documentos y anexos, interponiendo formal demanda en la vía contenciosa administrativa ordinaria en contra de la autoridad y por los actos y omisiones precisados.</span></p>
+    <p><span class="punto-petitorio-titulo">SEGUNDO.-</span> <span class="punto-petitorio-contenido">Admitir a trámite la presente demanda, por encontrarse ajustada a derecho.</span></p>
+    <p><span class="punto-petitorio-titulo">TERCERO.-</span> <span class="punto-petitorio-contenido">Tener por señalado domicilio y correo electrónico para oír y recibir notificaciones, y por autorizados a los profesionistas mencionados con las facultades conferidas.</span></p>
+    <p><span class="punto-petitorio-titulo">CUARTO.-</span> <span class="punto-petitorio-contenido">Ordenar se emplace a la autoridad demandada en el domicilio indicado, corriéndole traslado con las copias de ley para que produzca su contestación en el término del <span class="cita-legal">artículo 55 de la Ley 185</span>.</span></p>
+    <p><span class="punto-petitorio-titulo">QUINTO.-</span> <span class="punto-petitorio-contenido">Tener por ofrecidas y admitidas las pruebas relacionadas, incluyendo la jurisprudencial, ordenando el desahogo de las que así lo ameriten y requiriendo formalmente a la CEEAV Sonora la remisión del expediente administrativo CEEAV-NUS-385-2024 completo y certificado.</span></p>
+    <p><span class="punto-petitorio-titulo">SEXTO.-</span> <span class="punto-petitorio-contenido">Sustanciado que sea el procedimiento conforme a la Ley 185 de Justicia Administrativa, dictar resolución definitiva declarando la <strong>FUNDABILIDAD</strong> de la acción intentada y, en consecuencia:</span></p>
+    <ol type="a">
+        <li>Declarar la <strong>NULIDAD</strong> de la actividad administrativa irregular impugnada, incluyendo la negativa ficta y los actos expresos (oficios CEEAV-SON-UE/1467/2024 y CEEAV-SON-2047/2024) por ser contrarios a derecho (Conforme <span class="cita-legal">Art. 88 fr. II y III Ley 185</span>).</li>
+        <li><strong>CONDENAR</strong> a la Comisión Ejecutiva Estatal de Atención a Víctimas del Estado de Sonora a <strong>OTORGAR</strong> de manera inmediata, integral, adecuada, diferenciada y efectiva a mi menor hijo VÍCTOR EMMANUEL DE JESÚS GUTIÉRREZ MORALES y a nuestra familia, todas las <strong>medidas de ayuda, asistencia, atención y protección</strong> necesarias y solicitadas, conforme a los estándares de la Ley General de Víctimas, la Constitución y la CADH, incluyendo servicios médicos, terapéuticos, insumos, transporte adecuado, hospedaje, alimentación, apoyo psicológico, educativo y protección (Conforme <span class="cita-legal">Art. 88 fr. VI Ley 185</span>).</li>
+        <li><strong>RECONOCER EL DERECHO</strong> a la <strong>COMPENSACIÓN SUBSIDIARIA** y **ORDENAR</strong> a la CEEAV Sonora dictar la determinación correspondiente aplicando preferentemente el <span class="cita-legal">Artículo 67 inciso a) de la Ley General de Víctimas</span>, en un plazo perentorio, y fijando un monto justo y proporcional al daño, <span class="highlight">considerando los criterios jurisprudenciales sobre reparación integral (ej. derivados del caso Guardería ABC) que incluyen daño moral, proyecto de vida, error judicial y otros factores relevantes, sin sujetarse estrictamente al límite de 500 UMA si la gravedad del daño y las circunstancias del caso justifican un monto mayor</span>.</li>
+        <li>Ejercer el <strong>CONTROL DIFUSO DE CONSTITUCIONALIDAD Y CONVENCIONALIDAD</strong>, declarando la <strong>INAPLICABILIDAD</strong> al caso concreto del Artículo 50 de la Ley Estatal de Sonora (en la parte que omite el supuesto del Art. 67a LGV y en cuanto pudiera interpretarse como límite absoluto a la compensación) y de los Lineamientos Estatales restrictivos, ordenando la <strong>APLICACIÓN PREFERENTE</strong> de la Ley General de Víctimas, la Constitución, la CADH y la jurisprudencia aplicable.</li>
+        <li>Declarar la <strong>RESPONSABILIDAD PATRIMONIAL DEL ESTADO DE SONORA</strong> por la actividad administrativa irregular de la CEEAV Sonora, y <strong>CONDENAR</strong> al pago de la indemnización integral por daños materiales, morales y <span class="highlight">punitivos</span>, cuya cuantificación se hará en ejecución de sentencia o vía incidental (Conforme <span class="cita-legal">Art. 13 fr. IV y Art. 76 Ley 185</span>), atendiendo a los estándares de reparación integral establecidos en la jurisprudencia nacional e internacional.</li>
+    </ol>
+    <p><span class="punto-petitorio-titulo">SÉPTIMO.-</span> <span class="punto-petitorio-contenido">Proveer lo demás que en derecho corresponda.</span></p>
+
+    <p class="firma">
+        PROTESTO LO NECESARIO<br>
+        Hermosillo, Sonora, a 3 de mayo de 2025.<br><br><br>
+        _________________________________________<br>
+        <strong>VÍCTOR MANUEL GUTIÉRREZ VERDUZCO</strong><br>
+        (Actor, por propio derecho y en representación del menor V.E.J.G.M.)
+    </p>
+
+    
+    <script>
+        function downloadHTML() {
+            // Clona el documento actual para no modificar el original
+            const clonedDocument = document.documentElement.cloneNode(true);
+            // Busca y elimina el contenedor del botón en el clon
+            const buttonContainer = clonedDocument.querySelector('.download-button-container');
+            if (buttonContainer) {
+                buttonContainer.parentNode.removeChild(buttonContainer);
+            }
+            // Obtiene el HTML del clon sin el botón
+            const htmlContent = clonedDocument.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'demanda_tja_vs_ceav_final.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click(); // Simula el clic para iniciar la descarga
+            document.body.removeChild(a); // Elimina el enlace temporal
+            URL.revokeObjectURL(url); // Libera la URL del objeto
+        }
+    </script>
+
+
+
+</strong></body></html>

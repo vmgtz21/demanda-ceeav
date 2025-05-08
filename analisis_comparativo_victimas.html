@@ -1,0 +1,340 @@
+<html lang="es"><head><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    const errorString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  window.addEventListener('error', function(event) {
+    const errorString = event.message + ' (' + event.filename + ':' + event.lineno + ':' + event.colno + ') ' + (event.error ? event.error.stack : '');
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Comparativo: Ayudas a Víctimas Federal vs. Sonora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .table-header {
+            background-color: #4A5568; /* bg-gray-700 */
+            color: white;
+            font-weight: bold;
+        }
+        .table-cell {
+            padding: 0.75rem; /* p-3 */
+            border: 1px solid #E2E8F0; /* border-gray-300 */
+        }
+        .section-title {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold;
+            margin-top: 1.5rem; /* mt-6 */
+            margin-bottom: 1rem; /* mb-4 */
+            color: #2D3748; /* text-gray-800 */
+            border-bottom: 2px solid #718096; /* border-gray-500 */
+            padding-bottom: 0.5rem; /* pb-2 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .highlight {
+            color: #C53030; /* text-red-700 */
+            font-weight: bold;
+        }
+        .bg-federal { background-color: #EBF8FF; /* bg-blue-50 */ }
+        .bg-sonora { background-color: #FFF5EB; /* bg-orange-50 */ }
+        .border-federal { border-left: 4px solid #4299E1; /* border-blue-500 */ }
+        .border-sonora { border-left: 4px solid #ED8936; /* border-orange-500 */ }
+
+        .download-button {
+            background-color: #38A169; /* bg-green-600 */
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 0.375rem; /* rounded-md */
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem; /* mt-4 */
+            margin-bottom: 2rem; /* mb-8 */
+            transition: background-color 0.3s ease;
+        }
+        .download-button:hover {
+            background-color: #2F855A; /* bg-green-700 */
+        }
+
+        @media (max-width: 768px) {
+            .table-responsive {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .table-responsive th,
+            .table-responsive td {
+                white-space: nowrap;
+            }
+            .section-title {
+                font-size: 1.25rem; /* text-xl */
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-8{margin-bottom:2rem}.ml-4{margin-left:1rem}.ml-6{margin-left:1.5rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.table-cell{display:table-cell}.w-full{width:100%}.max-w-5xl{max-width:64rem}.border-collapse{border-collapse:collapse}.list-inside{list-style-position:inside}.list-disc{list-style-type:disc}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.p-4{padding:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:p-8{padding:2rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}}</style></head>
+<body class="bg-gray-100 p-4 md:p-8">
+    <div class="container mx-auto max-w-5xl">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Análisis Comparativo de Medidas de Ayuda a Víctimas</h1>
+            <p class="text-lg text-gray-600 mt-2">Marco Federal vs. Práctica en Sonora y el Uso de Tabuladores de Funcionarios</p>
+            <button id="downloadBtn" class="download-button">Descargar Análisis como HTML</button>
+        </header>
+
+        <div class="card">
+            <h2 class="section-title">Introducción: Principio de Legalidad y Protección a Víctimas</h2>
+            <p class="text-gray-700 leading-relaxed">
+                Las autoridades, incluyendo la Comisión Ejecutiva Estatal de Atención a Víctimas (CEEAV) de Sonora, deben actuar estrictamente conforme a lo que la ley les autoriza (Principio de Legalidad). Este análisis contrasta las prácticas de la CEEAV Sonora, en particular el uso de tabuladores de servidores públicos para determinar montos de ayuda, con los estándares de la Ley General de Víctimas (LGV Federal) y la Constitución, para evaluar si se respetan los derechos de las víctimas y los estándares mínimos nacionales.
+            </p>
+        </div>
+
+        <div class="card bg-federal border-federal">
+            <h2 class="section-title">I. Marco Normativo Federal de Protección a Víctimas</h2>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">A. Constitución Política de los Estados Unidos Mexicanos (CPEUM)</h3>
+            <div class="table-responsive">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="table-header table-cell text-left">Artículo</th>
+                            <th class="table-header table-cell text-left">Disposición Clave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell">Art. 1°</td>
+                            <td class="table-cell">Reconocimiento de DDHH, Principio Pro Persona, Obligación de autoridades de promover, respetar, proteger y garantizar DDHH.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Art. 20, Ap. C</td>
+                            <td class="table-cell">Derechos de las víctimas u ofendidos del delito.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Art. 73, Fracc. XXIX-X</td>
+                            <td class="table-cell">Facultad del Congreso de la Unión para expedir la Ley General en materia de víctimas.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Art. 133</td>
+                            <td class="table-cell">Principio de Supremacía Constitucional (Constitución, Leyes Federales y Tratados son Ley Suprema).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-2">B. Ley General de Víctimas (LGV Federal)</h3>
+            <div class="table-responsive">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="table-header table-cell text-left">Aspecto</th>
+                            <th class="table-header table-cell text-left">Descripción / Artículo Clave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell">Obligatoriedad</td>
+                            <td class="table-cell">Observancia en todo el territorio nacional, obliga a autoridades de todos los ámbitos (Art. 1).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Principios Rectores (Art. 5)</td>
+                            <td class="table-cell">Dignidad (Mínimo Existencial), Máxima Protección, Progresividad, Enfoque Diferencial, Gratuidad, Integralidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Medidas de Ayuda (Art. 8)</td>
+                            <td class="table-cell">Ayuda provisional, oportuna y rápida para necesidades inmediatas (alimentación, aseo, atención médica/psicológica de emergencia, transporte de emergencia, alojamiento transitorio) en <span class="highlight">condiciones dignas y seguras</span>.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Traslados (Art. 39 Bis)</td>
+                            <td class="table-cell">Cobertura de gastos de transportación, hospedaje y alimentación para ejercicio de derechos.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Facultades Estatales (Art. 118)</td>
+                            <td class="table-cell">Instrumentar políticas en <span class="highlight">concordancia con la política nacional</span> y ejercer facultades reglamentarias para <span class="highlight">aplicación de la LGV Federal</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-2">C. Lineamientos Federales CEAV (LRAARI 2022)</h3>
+            <p class="text-gray-700 mb-3">Establecen montos y criterios específicos para ayudas, <span class="highlight">sin mencionar tabuladores de funcionarios</span>.</p>
+            <div class="table-responsive">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="table-header table-cell text-left">Concepto de Ayuda (Traslados/Diligencias)</th>
+                            <th class="table-header table-cell text-left">Monto/Criterio Federal (LRAARI 2022)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell">Transporte Local (taxi, &lt; 50km)</td>
+                            <td class="table-cell">Hasta $500.00 MXN diarios.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Hospedaje (por noche/habitación)</td>
+                            <td class="table-cell">Hasta $1,500.00 MXN (hoteles máx. 3 estrellas).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Alimentación (desayuno, comida, cena)</td>
+                            <td class="table-cell">Hasta $900.00 MXN diarios ($300 por alimento).</td>
+                        </tr>
+                         <tr>
+                            <td class="table-header table-cell text-left" colspan="2">Medidas de Ayuda Generales (Mensual por Núcleo Familiar)</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Alimentación General</td>
+                            <td class="table-cell">Hasta 1.7 UMAs mensuales.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Alojamiento General</td>
+                            <td class="table-cell">Hasta 2.5 UMAs mensuales.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Gastos Funerarios</td>
+                            <td class="table-cell">Hasta 22 UMAs mensuales por víctima directa.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card bg-sonora border-sonora">
+            <h2 class="section-title">II. Marco Normativo y Práctica en Sonora</h2>
+            <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">A. Ley de Atención a Víctimas para el Estado de Sonora (Ley 4)</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                <li>Presenta <span class="highlight">falta de armonización significativa</span> con reformas recientes de la LGV Federal.</li>
+                <li>Incluye el <span class="highlight">principio de "Factibilidad"</span>, que podría justificar limitaciones presupuestarias en detrimento de los derechos de las víctimas, contraviniendo principios federales.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-2">B. Acuerdo CEEAV Sonora (Boletín Oficial 23 de mayo de 2024)</h3>
+            <p class="text-gray-700 mb-3">Establece el uso de <span class="highlight">tabuladores de viáticos de servidores públicos de Sonora</span> para gastos de traslado de víctimas.</p>
+            <div class="table-responsive">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="table-header table-cell text-left">Concepto (Gastos de Traslado Víctimas Sonora)</th>
+                            <th class="table-header table-cell text-left">Monto Máximo Diario (Tabulador Funcionarios)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell">Viáticos Estatales (transporte, hospedaje, alimentos)</td>
+                            <td class="table-cell">$700.00 MXN diarios.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Viáticos Nacionales (transporte, hospedaje, alimentos)</td>
+                            <td class="table-cell">$950.00 MXN diarios.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Medida de Desarrollo Social (grupos vulnerables específicos)</td>
+                            <td class="table-cell">1 UMA mensual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">III. Análisis de la Controversia: El Problema de Equiparar Víctimas con Funcionarios</h2>
+            <div class="space-y-4 text-gray-700 leading-relaxed">
+                <p><strong class="text-gray-800">1. Principio de Legalidad y Facultades Estatales Condicionadas:</strong> Si bien la CEEAV Sonora tiene facultad para emitir lineamientos (Art. 118 LGV Federal), debe hacerlo <span class="highlight">en concordancia con la política nacional</span> y para aplicar la LGV Federal. No tiene carta blanca para disminuir derechos o estándares mínimos.</p>
+
+                <p><strong class="text-gray-800">2. Uso del Tabulador de Funcionarios en Sonora:</strong></p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li><span class="highlight">No está contemplado en la normativa federal:</span> La LGV Federal y sus lineamientos no autorizan este criterio; establecen sus propios parámetros.</li>
+                    <li><span class="highlight">Inadecuado e Insuficiente para Víctimas:</span>
+                        <ul class="list-circle list-inside ml-6 space-y-1">
+                            <li><strong class="text-gray-700">Naturaleza Distinta:</strong> Las víctimas están en vulnerabilidad, no en comisión de servicio remunerada.</li>
+                            <li><strong class="text-gray-700">Insuficiencia Manifiesta:</strong> $700/$950 diarios para cubrir transporte, hospedaje y alimentos es generalmente insuficiente y considerablemente menor a los referentes federales (ej. Federal: hasta $1,500 hotel + $900 alimentos = $2,400 solo para estos dos conceptos, sin contar transporte interurbano).</li>
+                            <li><strong class="text-gray-700">Violación de Principios LGV Federal (Art. 5):</strong> Afecta la Dignidad (Mínimo Existencial), Máxima Protección y Enfoque Diferencial.</li>
+                        </ul>
+                    </li>
+                     <li><strong class="text-gray-700">Justificación de CEEAV Sonora ("certidumbre", "maximizar recursos"):</strong> No pueden anteponerse a los derechos humanos. El Estado debe proveer presupuesto suficiente.</li>
+                </ul>
+                <p><strong class="text-gray-800">3. Apoyo de "1 UMA Mensual" en Sonora:</strong> Su suficiencia como medida de desarrollo social es cuestionable si se pretende que cubra necesidades básicas generales, lo cual no es su definición. No sustituye otras medidas de ayuda ni la compensación integral.</p>
+                <p><strong class="text-gray-800">4. Inconstitucionalidad e Ilegalidad de la Práctica Estatal:</strong> Si la Ley 4 de Sonora y su aplicación (incluyendo el principio de "Factibilidad" y el uso de tabuladores de funcionarios) resultan en una protección inferior a la LGV Federal, son contrarias a la LGV Federal y al Art. 133 Constitucional. Debe aplicarse el <span class="highlight">Principio Pro Persona</span> (norma más favorable).</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">IV. Conclusión General</h2>
+            <p class="text-gray-700 leading-relaxed">
+                La práctica de la CEEAV Sonora de utilizar tabuladores de viáticos de servidores públicos para determinar los montos de ayuda a víctimas es <span class="highlight">altamente cuestionable y no encuentra sustento en el marco normativo federal</span>. Dicho marco, por el contrario, establece criterios y montos de referencia propios que buscan garantizar la dignidad y suficiencia de las ayudas.
+            </p>
+            <p class="text-gray-700 leading-relaxed mt-3">
+                Las autoridades estatales tienen facultades reglamentarias, pero estas están <span class="highlight">estrictamente subordinadas al cumplimiento de los estándares mínimos y principios de la LGV Federal y la Constitución</span>. Equiparar las necesidades de una víctima con las de un funcionario en comisión de servicio ignora la vulnerabilidad inherente de la primera y puede resultar en la violación de sus derechos fundamentales a una asistencia digna y suficiente. Las víctimas tienen derecho a que se aplique la norma y el criterio que más les favorezca, en atención al principio pro persona.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Función para descargar el contenido HTML de la página actual
+        function downloadHTML() {
+            // Obtener el contenido HTML completo de la página
+            const htmlContent = document.documentElement.outerHTML;
+            // Crear un objeto Blob con el contenido HTML
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            // Crear una URL para el Blob
+            const url = URL.createObjectURL(blob);
+            // Crear un elemento <a> temporal para la descarga
+            const a = document.createElement('a');
+            a.href = url;
+            // Establecer el nombre del archivo para la descarga
+            a.download = 'analisis_comparativo_victimas.html';
+            // Añadir el elemento al DOM (necesario para Firefox)
+            document.body.appendChild(a);
+            // Simular un clic en el enlace para iniciar la descarga
+            a.click();
+            // Eliminar el elemento <a> temporal del DOM
+            document.body.removeChild(a);
+            // Liberar la URL del Blob
+            URL.revokeObjectURL(url);
+        }
+
+        // Añadir el event listener al botón de descarga
+        document.getElementById('downloadBtn').addEventListener('click', downloadHTML);
+    </script>
+
+
+
+</body></html>

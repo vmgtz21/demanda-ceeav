@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es"><head><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    const errorString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  window.addEventListener('error', function(event) {
+    const errorString = event.message + ' (' + event.filename + ':' + event.lineno + ':' + event.colno + ') ' + (event.error ? event.error.stack : '');
+    window.parent.postMessage({ type: 'error', message: errorString }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Anexos para Demanda vs CEEAV (Referencia del Usuario)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+            padding: 1rem;
+        }
+        .container {
+            max-width: 6xl; /* Más ancho para la tabla */
+            margin: 1rem auto;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.5rem; /* 2xl */
+            font-weight: 600; /* semibold */
+            color: #1e3a8a; /* blue-800 */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #dbeafe; /* blue-100 */
+            padding-bottom: 0.75rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.95rem; /* Ajuste tamaño fuente tabla */
+            vertical-align: top; /* Alinear contenido arriba */
+        }
+        th {
+            background-color: #eff6ff; /* blue-50 */
+            font-weight: 600;
+            color: #1e40af; /* blue-700 */
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb; /* gray-50 */
+        }
+        tr:hover {
+            background-color: #f0f9ff; /* sky-50 */
+        }
+        .anexo-col { width: 5%; text-align: center; font-weight: 600; }
+        .desc-col { width: 45%; }
+        .fuente-col { width: 50%; font-size: 0.85rem; color: #4b5563; /* gray-600 */ }
+        .fuente-col code {
+            background-color: #e5e7eb; /* gray-200 */
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .download-button-container {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .download-button {
+            background-color: #16a34a; /* green-600 */
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .download-button:hover {
+            background-color: #15803d; /* green-700 */
+        }
+         /* Estilos para impresión */
+         @media print {
+            body { background-color: white; padding: 0; margin: 0; font-size: 10pt; }
+            .container { box-shadow: none; border: none; margin: 0; width: 100%; max-width: 100%; padding: 0.5in; border-radius: 0;}
+            table { font-size: 9pt; }
+            th, td { padding: 0.3rem; }
+            .fuente-col { font-size: 8pt; }
+            .download-button-container { display: none; }
+            h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+         }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.text-center{text-align:center}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}</style></head>
+<body>
+    <div class="container">
+        <h2>Guía de Anexos para Demanda vs CEEAV (Referencia del Usuario - Ordenada)</h2>
+        <p class="text-center text-sm text-red-600 font-semibold">**Esta guía es solo para tu referencia interna. NO la presentes al Tribunal.**</p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="anexo-col">Anexo</th>
+                    <th class="desc-col">Descripción del Documento (Para el Tribunal)</th>
+                    <th class="fuente-col">Fuente / Ubicación (Para tu referencia)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="3" class="bg-blue-100 font-semibold text-blue-800">A. Acreditación Personalidad y Calidad de Víctima</td></tr>
+                <tr>
+                    <td class="anexo-col">1</td>
+                    <td class="desc-col">Acta de Nacimiento del menor V.E.J.G.M. (Copia certificada).</td>
+                    <td class="fuente-col">Mencionada en <code>demanda penal comrpimida_Parte1.pdf</code>, pág. 14. (Necesitas el original o copia certificada).</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">2</td>
+                    <td class="desc-col">Identificación Oficial del Actor (Víctor Manuel Gutiérrez Verduzco).</td>
+                    <td class="fuente-col">Debes anexar copia de tu INE/Pasaporte vigente.</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">3</td>
+                    <td class="desc-col">Oficio MP Huatabampo CI/NAV/135/81/00417/9-2020 (30/Ago/2024) - Reconocimiento Calidad Víctima.</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 31 / <code>Binder2.pdf</code>, pág. 23 / <code>blinder 88.pdf</code>, pág. 31.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">4</td>
+                    <td class="desc-col">Oficio CEEAV-SON-RE/692/2024 (20/Sep/2024) - Inscripción REV Sonora.</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 32 / <code>Binder2.pdf</code>, pág. 20 / <code>blinder 88.pdf</code>, pág. 32.</td>
+                </tr>
+                <tr><td colspan="3" class="bg-blue-100 font-semibold text-blue-800">B. Actos Impugnados y Solicitudes Previas</td></tr>
+                 <tr>
+                    <td class="anexo-col">5</td>
+                    <td class="desc-col">Escrito de Solicitud a CEEAV (24/Oct/2024) (Copia con sello de recibido).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 17 / <code>Binder1.pdf</code>, pág. 51 / <code>Binder2.pdf</code>, pág. 22.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">6</td>
+                    <td class="desc-col">Escrito Recordatorio Urgente a CEEAV (28/Oct/2024) (Copia con sello de recibido).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 39 / <code>Binder1.pdf</code>, pág. 64 / <code>Binder2.pdf</code>, pág. 35.</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">7</td>
+                    <td class="desc-col">Oficio CEEAV-SON-UE/1467/2024 (30/Oct/2024) - Negativa CEEAV (condicionada a sentencia). (Acto Impugnado).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 47 / <code>Binder1.pdf</code>, pág. 68 / <code>Binder2.pdf</code>, pág. 39.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">8</td>
+                    <td class="desc-col">Escrito de Respuesta/Refutación al Oficio ...1467/2024 (04/Nov/2024 aprox.).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 67.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">9</td>
+                    <td class="desc-col">Oficio CEEAV-SON-2047/2024 (05/Nov/2024) - Negativa CEEAV (por ISSSTESON). (Acto Impugnado).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, pág. 16 / <code>Binder1.pdf</code>, pág. 40 / <code>Binder2.pdf</code>, pág. 11.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">10</td>
+                    <td class="desc-col">Oficio CEEAV-SON-UE-1560-2024 (25/Nov/2024) - Respuesta sobre recurso apelación y rol del abogado.</td>
+                    <td class="fuente-col"><code>Binder1.pdf</code>, pág. 63 / <code>Binder2.pdf</code>, pág. 34.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">11</td>
+                    <td class="desc-col">Determinación Medida de Ayuda Atención Psicológica (15/Nov/2024).</td>
+                    <td class="fuente-col"><code>Binder1.pdf</code>, pág. 69 / <code>Binder2.pdf</code>, pág. 15.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">12</td>
+                    <td class="desc-col">Oficio CEEAV-SON-PSIC/2568/2024 (21/Nov/2024) - Gestión terapia psicológica.</td>
+                    <td class="fuente-col"><code>Binder1.pdf</code>, pág. 75 / <code>Binder2.pdf</code>, pág. 21.</td>
+                </tr>
+                 <tr><td colspan="3" class="bg-blue-100 font-semibold text-blue-800">C. Pruebas del Daño y Necesidades del Menor</td></tr>
+                <tr>
+                    <td class="anexo-col">13</td>
+                    <td class="desc-col">Nota de Egreso ISSSTESON H.M.O. (23/Abr/2018).</td>
+                    <td class="fuente-col"><code>demanda penal comrpimida_Parte1.pdf</code>, pág. 14 / <code>demanda penal comrpimida_Parte2.pdf</code>, pág. 1.</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">14</td>
+                    <td class="desc-col">Solicitud de Interconsulta Real ISSSTESON (02-03/Abr/2018).</td>
+                    <td class="fuente-col">Archivo de imagen: <code>interconsulta.jpg</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">15</td>
+                    <td class="desc-col">Nota de Evolución ISSSTESON H.M.O. (05/Abr/2018).</td>
+                    <td class="fuente-col">Archivo PDF: <code>hoja 2.pdf</code>.</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">16</td>
+                    <td class="desc-col">Muestra representativa de Informes Médicos, Recetas, Estudios recientes.</td>
+                    <td class="fuente-col">Tus archivos personales. Selecciona los más claros y relevantes para demostrar condición actual y necesidades.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">17</td>
+                    <td class="desc-col">Muestra representativa de Facturas y comprobantes de gastos (médicos, insumos, silla de ruedas, traslados, etc.).</td>
+                    <td class="fuente-col">Tus archivos personales. Organiza por tipo de gasto.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">18</td>
+                    <td class="desc-col">Peritajes previos (Psicológicos, Neurocirugía, etc.) del caso vs. ISSSTESON (si los tienes).</td>
+                    <td class="fuente-col">Tus archivos personales o del expediente anterior. Son prueba documental clave del daño.</td>
+                </tr>
+                 <tr><td colspan="3" class="bg-blue-100 font-semibold text-blue-800">D. Pruebas del Contexto (Hostigamiento, Irregularidades)</td></tr>
+                 <tr>
+                    <td class="anexo-col">19</td>
+                    <td class="desc-col">Fotografías Hostigamiento (Oct/2024).</td>
+                    <td class="fuente-col"><code>OFICIOS CEAV LISTO.pdf</code>, págs. 44-50 / <code>Binder1.pdf</code>, págs. 44-50.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">20</td>
+                    <td class="desc-col">Transcripción Conversación Comisionada.</td>
+                    <td class="fuente-col">Archivo de texto: <code>comisionada.txt</code>.</td>
+                </tr>
+                <tr>
+                    <td class="anexo-col">21</td>
+                    <td class="desc-col">Escritos y Resoluciones relevantes de Juicios de Amparo (Selección de 88/2025, 442/2025, etc.).</td>
+                    <td class="fuente-col"><code>blinder 88.pdf</code>, <code>14.pdf</code>, <code>15.pdf</code>, <code>01 recurso de revision 442.pdf</code>, <code>02 nanexos varios.pdf</code>. Selecciona los más significativos.</td>
+                </tr>
+                 <tr><td colspan="3" class="bg-blue-100 font-semibold text-blue-800">E. Fundamentos Jurídicos Adicionales (Opcional Anexar)</td></tr>
+                 <tr>
+                    <td class="anexo-col">22</td>
+                    <td class="desc-col">Análisis Comparativo Penal Federal vs Sonora.</td>
+                    <td class="fuente-col"><code>Comparación Penal Federal y Sonora_.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">23</td>
+                    <td class="desc-col">Análisis Comparativo Civil Federal vs Sonora.</td>
+                    <td class="fuente-col"><code>Marco Normativo Civil Comparativo_.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">24</td>
+                    <td class="desc-col">Análisis Comparativo Víctimas Federal vs Sonora.</td>
+                    <td class="fuente-col"><code>Marco Normativo Víctimas_ Comparación Federal-Sonora._.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">25</td>
+                    <td class="desc-col">Análisis Comparativo Víctimas (Detalle Sonora).</td>
+                    <td class="fuente-col"><code>Marco Normativo Víctimas_ Comparación Sonora_.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">26</td>
+                    <td class="desc-col">Análisis Comparativo Salud Federal vs Sonora.</td>
+                    <td class="fuente-col"><code>Normativa Salud_ Federal vs Sonora_.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">27</td>
+                    <td class="desc-col">Análisis Comparativo Responsabilidades Servidores y Patrimonial.</td>
+                    <td class="fuente-col"><code>Responsabilidad Servidores Públicos y Patrimonial_.pdf</code>.</td>
+                </tr>
+                 <tr>
+                    <td class="anexo-col">28</td>
+                    <td class="desc-col">Acuerdo Boletín Oficial Sonora (23/May/2024) - Adición Lineamientos CEEAV.</td>
+                    <td class="fuente-col"><code>Binder1.pdf</code>, págs. 3-8.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+
+    <script>
+        function downloadHTML() {
+            // Clona el documento actual para no modificar el original
+            const clonedDocument = document.documentElement.cloneNode(true);
+            // Busca y elimina el contenedor del botón en el clon
+            const buttonContainer = clonedDocument.querySelector('.download-button-container');
+            if (buttonContainer) {
+                buttonContainer.parentNode.removeChild(buttonContainer);
+            }
+            // Obtiene el HTML del clon sin el botón
+            const htmlContent = '<!DOCTYPE html>\n<html lang="es">' + clonedDocument.innerHTML + '</html>'; // Reconstruye con DOCTYPE y lang
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'guia_anexos_demanda_tja_usuario.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click(); // Simula el clic para iniciar la descarga
+            document.body.removeChild(a); // Elimina el enlace temporal
+            URL.revokeObjectURL(url); // Libera la URL del objeto
+        }
+    </script>
+
+
+
+</body></html>
